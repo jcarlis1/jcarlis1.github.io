@@ -60,6 +60,11 @@ article {
     justify-content: center;
 }
 
+.article {
+    display: flex;
+    justify-content: center;
+}
+
 .images {
     background-color: lightblue;
 }
