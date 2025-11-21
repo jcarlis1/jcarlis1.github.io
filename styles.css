@@ -30,13 +30,13 @@ header p {
   gap: 24px;
 }
 
-a.inline{
+a .inline{
     color: #6ee7f5;
     text-underline-offset: 3px;
     text-decoration: none;
     border-bottom: 1px dashed transparent;
 }
-a.inline:hover{ 
+a .inline:hover{ 
     border-bottom-color: currentColor 
 }
 
