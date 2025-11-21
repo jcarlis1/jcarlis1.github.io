@@ -1,1 +1,272 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta author="Joey Carlisle">
+    <title>CS 581: Project 2</title>
+    <link rel="icon" href="img/eye.png">
+    <link rel="stylesheet" type="text/css" href="../styles.css" />
+</head>
+<body>
+    <header>
+        <a class="inline" href="../index.html">&lt- Back Home</a>
+        <br>
+        <nav>
+            <h1>CS 581: Project 2 - Image Homography and Warping</h1>
+        </nav>
+        <h2 class="tab">Objective:</h2>
+        <h3 class="tab">Apply geometric transformation concepts from class to perform image rectification and explore creative applications of image homography. The goal is to understand how 2D transformations can <br>recover fronto-parallel views of planar surfaces and be used in real-world applications such as document scanning or panoramic stitching.</h3>
+        <br>
+    </header>
+    <main>
+        <div class="tab">
+            <h2>Part 1: Image Homography Estimation </h2>
+            <h3>Implement homography estimation and image warping to rectify an input image containing a planar surface (e.g., a document, a poster, or a road sign) captured at an angle.</h3>
+            <div>
+                <h3>Tasks:</h3>
+                <ul>
+                    <li>Manually select 4+ point correspondences between the original image and a target rectangular region.</li>
+                    <li>Estimate the homography matrix H (e.g., using the DLT algorithm).</li>
+                    <li>Warp the original image using inverse mapping to obtain a rectified (fronto-parallel) view.</li>
+                    <li>Visualize before/after results.</li>
+                </ul>
+                <!-- <h3>Deliverables:</h3>
+                <ul>
+                    <li>Original image and rectified output.</li>
+                    <li>Visualization of correspondences.</li>
+                    <li>Brief discussion describing how homography enables rectification.</li>
+                </ul> -->
+                <div class="images">
+                    <article>
+                        <br>
+                        <div class="article">
+                            <figure>
+                                <img src="img/scene_1-b.jpg" alt="art side view" width="200" height="300"/>
+                                <figcaption>Original image from <br>the right side</figcaption>
+                            </figure>
+                            <figure>
+                                <img src="img/scene_1-a.jpg" alt="artwork" width="200" height="300"/>
+                                <figcaption>Original image straight on</figcaption>
+                            </figure>
+                        </div>
+                        <div class="center">
+                            <figure>
+                                <img src="img/1-b.png" alt="rectified art" width="600" height="300"/>
+                                <figcaption>Correspondence Points and Rectified (Warped) Image</figcaption>
+                            </figure>
+                        </div>
+                        <div class="article">
+                            <figure>
+                                <img src="img/scene_1-c.jpg" alt="art side view" width="200" height="300"/>
+                                <figcaption>Original image from <br>the left side</figcaption>
+                            </figure>
+                            <figure>
+                                <img src="img/scene_1-a.jpg" alt="artwork" width="200" height="300"/>
+                                <figcaption>Original image straight on</figcaption>
+                            </figure>
+                        </div>
+                        <div class="center">
+                            <figure>
+                                <img src="img/1-c.png" alt="rectified art" width="600" height="300"/>
+                                <figcaption>Correspondence Points and Rectified (Warped) Image</figcaption>
+                            </figure>
+                        </div>
+                        <br>
+                        <div class="article">
+                            <figure>
+                                <img src="img/scene_2-a.jpg" alt="art side view" width="200" height="300"/>
+                                <figcaption>Original image from <br>the left side</figcaption>
+                            </figure>
+                            <figure>
+                                <img src="img/scene_2-b.jpg" alt="artwork" width="200" height="300"/>
+                                <figcaption>Original image straight on</figcaption>
+                            </figure>
+                        </div>
+                        <div class="center">
+                            <figure>
+                                <img src="img/2-a.png" alt="rectified art" width="600" height="300"/>
+                                <figcaption>Correspondence Points and Rectified (Warped) Image</figcaption>
+                            </figure>
+                        </div>
+                        <div>
+                            <p>Image rectification is the process of transforming an image to adjust the geometric distortions and cause the image to conform to a new coordinate system or view.
+                            Homography is a 3x3 transformation matrix allowing for the mapping of points from one image to another. It describes the relationship between two different perspectives of a planar surface.<br>
+                            <br>Using a homography, a planar surface can be modeled (and/or reversed) causing a projective transformation of the camera view.
+                            As seen in the Rectified (Warped) images, I was able to pull the sides of the angled artwork to a forward view.<br>
+                            It worked very well. However, after the warping you can see the image is stretched compared to the original front view of the artwork</p>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="tab">
+            <h2>Part 2: Creative Application (Exploration and Extension)</h2>
+            <h3>Use your homography implementation creatively to demonstrate a real-world or artistic application.</h3>
+            <div>
+                <!-- <h3>Requirements:</h3>
+                <ul>
+                    <li>Use your homography code from Part 1.</li>
+                    <li>Describing your idea, what worked well, and any challenges.</li>
+                    <li>You are encouraged to be creative and propose your own ideas.</li>
+                </ul> -->
+                <div class="images">
+                    <article>
+                        <div class="article">
+                            <figure>
+                                <img src="img/left.jpg" alt="Ole Mis Quad" width="150" height="250"/>
+                                <figcaption>left image</figcaption>
+                            </figure>
+                            <figure>
+                                <img src="img/center.jpg" alt="Ole Mis Quad" width="150" height="250"/>
+                                <figcaption>center image</figcaption>
+                            </figure>
+                            <figure>
+                                <img src="img/right.jpg" alt="Ole Mis Quad" width="150" height="250"/>
+                                <figcaption>right image</figcaption>
+                            </figure>
+                        </div>
+                        <div class="center">
+                            <figure>
+                                <img src="img/panorama.png" alt="The Ole Mis Quad behind Weir Hall" width="600" height="300"/>
+                                <figcaption>Panorama view of the quad</figcaption>
+                            </figure>
+                        </div>
+                        <p>I used the panorama idea suggested by Dr. Wang simply because I liked the idea and wanted to try it. Everything worked well with the blending of the images, however I had to take several around of images. I kept overlapping the side images with the center image, so the blending showed a very small strip from the center image. <br><br>
+                            As seen in the final product, I was able to show most of the center image along with the two sides. The blending of the right side looks good to me, but the left is a little off and a person walking in the back left is shown twice due to the timing of the images being taken. As for the foreground the curve of the red bricks against the grass isn’t that bad, but you can see the lines on the ground don’t line up well. <br>
+                            <br>The biggest challenges were finding the 4-point correspondences. I mistakenly thought that the left and right images would have 2 points and the center would have 4, but I quickly realized my mistake.
+                        </p>
+                    </article>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="tab">
+            <h2>Part 3: Warping Comparison (Graduate Students)</h2>
+            <h3>Compare triangular mesh warping and thin-plate spline (TPS) warping.</h3>
+            <h3>Tasks:</h3>
+                <ul>
+                    <li>Implement or use available routines for both warping methods.</li>
+                    <li>Apply both to the same input (e.g., facial landmarks, grid deformation, or a planar surface).</li>
+                    <li>Compare visually and discuss differences in smoothness, continuity, and computational cost.</li>
+                </ul>
+                <!-- <h3>Deliverables:</h3>
+                <ul>
+                    <li>Visual comparison (side-by-side outputs).</li>
+                    <li>Analysis explaining the advantages/disadvantages of each method.</li>
+                </ul> -->
+            <div class="images">
+                <div class="article">
+                    <article>
+                        <figure>
+                            <img src="img/3_1_triangle_points.png" alt="The number 3" width="400" height="300"/>
+                            <figcaption>Triangular Mesh Warping Correspondence points</figcaption>
+                        </figure>
+                    </article>
+                    <article>
+                        <figure>
+                            <img src="img/3_1_triangle_result.png" alt="The number 3" width="300" height="300"/>
+                            <figcaption>Result of Wapring</figcaption>
+                        </figure>
+                    </article>
+                </div>
+                <div class="article">
+                    <article>
+                        <figure>
+                            <img src="img/3_2_triangle_points.png" alt="The number 3" width="400" height="300"/>
+                            <figcaption>Triangular Mesh Warping Correspondence points <br> Second attempt</figcaption>
+                        </figure>
+                    </article>
+                    <article>
+                        <figure>
+                            <img src="img/3_2_triangle_result.png" alt="The number 3" width="300" height="300"/>
+                            <figcaption>Result of Wapring <br>Second attempt</figcaption>
+                        </figure>
+                    </article>
+                </div>
+                <div class="article">
+                    <article>
+                        <figure>
+                            <img src="img/3_tps_points.png" alt="The number 3" width="400" height="300"/>
+                            <figcaption>Thin-plate Spline Correspondence points</figcaption>
+                        </figure>
+                    </article>
+                    <article>
+                        <figure>
+                            <img src="img/3_tps_result.png" alt="The number 3" width="300" height="300"/>
+                            <figcaption>Result of Wapring</figcaption>
+                        </figure>
+                    </article>
+                </div>
+                <div class="article">
+                    <article>
+                        <figure>
+                            <img src="img/7_triangle_points.png" alt="The number 7" width="400" height="300"/>
+                            <figcaption>Triangular Mesh Warping Correspondence points</figcaption>
+                        </figure>
+                    </article>
+                    <article>
+                        <figure>
+                            <img src="img/7_triangle_result.png" alt="The number 7" width="300" height="300"/>
+                            <figcaption>Result of Wapring</figcaption>
+                        </figure>
+                    </article>
+                </div>
+                <div class="article">
+                    <article>
+                        <figure>
+                            <img src="img/7_tps_points.png" alt="The number 7" width="400" height="300"/>
+                            <figcaption>Thin-plate Spline Correspondence points</figcaption>
+                        </figure>
+                    </article>
+                    <article>
+                        <figure>
+                            <img src="img/7_tps_result.png" alt="The number 7" width="300" height="300"/>
+                            <figcaption>Result of Wapring</figcaption>
+                        </figure>
+                    </article>
+                </div>
+                <div class="article">
+                    <article>
+                        <figure>
+                            <img src="img/A_triangle_points.png" alt="The letter A" width="400" height="300"/>
+                            <figcaption>Triangular Mesh Warping Correspondence points</figcaption>
+                        </figure>
+                    </article>
+                    <article>
+                        <figure>
+                            <img src="img/A_triangle_result.png" alt="The letter a" width="300" height="300"/>
+                            <figcaption>Result of Wapring</figcaption>
+                        </figure>
+                    </article>
+                </div>
+                <div class="article">
+                    <article>
+                        <figure>
+                            <img src="img/A_tps_points.png" alt="The letter A" width="400" height="300"/>
+                            <figcaption>Thin-plate Spline Correspondence points</figcaption>
+                        </figure>
+                    </article>
+                    <article>
+                        <figure>
+                            <img src="img/A_tps_result.png" alt="The letter A" width="300" height="300"/>
+                            <figcaption>Result of Wapring</figcaption>
+                        </figure>
+                    </article>
+                </div>
+                <div class="tab">
+                    <p>In the second attempt for the digit 3, I tried to place the Correspondence points in the same relative location on the number. The result is worse. I played around with the points so much and the results kept getting worse.
+                    For each of the test images, I tried adding points, but it only made the result worse. For one attempt at triangular mesh using the digit 3, I even added boundary points, and it made a blob.
+                    I believe I selected poor point locations. I thought I placed them well, but the results to me don't show that.<br><br>
+                    The Triangular mesh warps look very harsh with exaggerated angles, although the number is still visible, but manually placing all the points is very time consuming. The TPS warps look smoother but also blurrier with the black background, the placing of the points was easy compared to triangular mesh.<br><br>
+                    Triangular mesh warping is fast and simple to implement. The disadvantages are it is harder to get smooth curved shapes (which is noticeable in my results), and it needs good triangulation (triangle matching - however in attempt 1 for digit 3, the points being less matched led to a better result).<br>
+                    Thin-plate Spline warping works well with few points (I did try more with digit 3 and it made it much worse), is better for curved shapes, and there is no need to manage triangles. The disadvantages are fine-tuning small areas is difficult and moving one point affects the entire image
+                    The result for triangular mesh with my image of the letter A, looks better to me even though there is a hole on the right side. I created the source using italics with an Abadi MT font and the target using a Comic Sans MS font.</p>
+                </div>
+            </div>   
+        </div>
+    </main>
+</body>
+</html>
