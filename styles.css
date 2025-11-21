@@ -19,7 +19,6 @@ header h1 {
 }
 
 header p {
-    color: #b7bdd1;
     font-size:clamp(14px, 1.7vw, 18px);
     margin:0;
 }
