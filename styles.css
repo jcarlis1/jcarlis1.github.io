@@ -19,7 +19,7 @@ header h1 {
 }
 
 header p {
-    color:var(--muted);
+    color: #b7bdd1;
     font-size:clamp(14px, 1.7vw, 18px);
     margin:0;
 }
@@ -31,7 +31,7 @@ header p {
 }
 
 a.inline{
-    color: #6ee7f5;
+    color: rgb(255, 0, 0);
     text-underline-offset: 3px;
     text-decoration: none;
     border-bottom: 1px dashed transparent;
