@@ -23,10 +23,17 @@ header p {
     margin:0;
 }
 
-.row{
+/* .row{
   display: flex;
-  /* grid-template-columns: repeat(2, minmax(320px, 1fr)); */
   gap: 24px;
+} */
+
+.row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem; 
+    margin: 2rem auto;
 }
 
 a.inline{
@@ -45,6 +52,7 @@ a.inline:hover{
 
 .card{
     display: block;
+    width: 300px;
     padding: 18px;
     border-radius:18px;
     background: lightblue;
