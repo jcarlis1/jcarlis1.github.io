@@ -31,7 +31,8 @@ header p {
 .row {
     display: flex;
     justify-content: center;
-    align-items: center;
+    /* align-items: center; */
+    align-items: stretch; 
     gap: 2rem; 
     margin: 2rem auto;
 }
