@@ -24,7 +24,7 @@ header p {
 }
 
 .row{
-  display: grid;
+  display: flex;
   /* grid-template-columns: repeat(2, minmax(320px, 1fr)); */
   gap: 24px;
 }
