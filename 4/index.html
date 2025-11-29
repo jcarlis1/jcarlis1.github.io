@@ -21,388 +21,287 @@
             The goal of this project is to help you build a practical understanding of diffusion models, from the forward noising process to iterative denoising and sampling. 
         </h3>
         <ul>
+            <li class="tab">In Part 0, Setup.</li>
             <li class="tab">In Part 1, you will implement the forward diffusion process and experiment with both traditional denoising (Gaussian filtering) and a pre-trained diffusion model to understand how noise is added and removed. </li>
             <li class="tab">In Part 2, you will work with a pre-trained diffusion model to perform sampling, explore classifier-free guidance, and apply the model to a creative task. </li>
             <li class="tab">In Part 3, (graduate students only), you will explore a recent research paper on visual anagrams (CVPR 2024) and generate multi-view optical illusions using diffusion models. </li>
             <li class="tab">In Part 4, (optional, extra credit 33%), you will train your own denoising U-Net on MNIST and implement a full DDPM pipeline. </li>
         </ul>
-        <br>
     </header>
     <main>
         <div class="tab">
-            <h2>Part 1: Lightweight Object Detection </h2>
-            <h3>Implement and train a lightweight detection model (SSD, Faster R-CNN with MobileNet, or YOLO). Object detection datasets are typically larger than the toy example datasets like MNIST used in image classification, here is a banana detection dataset that can be used, where the authors took photos of bananas and generated 1000 banana images with different rotations and sizes. </h3>
-            <div>
-                <h3>Tasks:</h3>
-                <ul>
-                    <li>Plot training loss curves (class error and bounding box error).</li>
-                    <li>Show 5 sample detections. </li>
-                    <li>Test the your detection model with your own banana images. Can you find any failure cases? Provide a few failure cases if you can find and discuss the possible reasons that caused the detection to fail. </li>
-                </ul>
-                <div class="images">
-                    <!-- <article>
-                        <br>
-                        <div class="center">
-                            <img src="img/Loss_curve.png" alt="Loss curve grapgh" width="400" height="400"/>
-                        </div>
-                        <div class="center">
-                            <p>The loss curve shows that the classification error and bounding box mean average error decreased rapidly within the first few epochs.<br>
-                            It stabilizes and then gradually decreases further as the training progresses. It suggests the model is well-optimized, without signs of overfitting.</p>
-                        </div>
-                        <br>
-                        <div class="center">
-                            <img src="img/detection1.png" alt="banana" width="600" height="300"/>
-                        </div>
-                        <div class="center">
-                            <img src="img/detection2.png" alt="banana" width="600" height="300"/>
-                        </div>
-                        <div class="center">
-                            <img src="img/detection3.png" alt="banana" width="600" height="300"/>
-                        </div>
-                        <div class="center">
-                            <img src="img/detection4.png" alt="banana" width="600" height="300"/>
-                        </div>
-                        <div class="center">
-                            <img src="img/detection5.png" alt="banana" width="600" height="300"/>
-                        </div>
-                        <div class="center">
-                            <p class="tab">
-                                The results show that the SSD algorithm wasn't successful. It wasn't able to place bounding boxes around the bananas. <br>
-                                I trained the model 6 times (each training took roughly an hour and a half). I did make a mistake in selecting 1 class instead <br>
-                                of two, I didn't account for the background being 0 while a banana is 1. I was not able to ascertain why it didn't work correctly 
-                                <br>and ran out of time to try any more options.
-                            </p>
-                        </div>
-                        <br>
-                        <div class="center">
-                            <img src="img/myBanana1.png" alt="banana" width="600" height="300"/>
-                        </div>
-                        <div class="center">
-                            <img src="img/myBanana2.png" alt="banana" width="600" height="300"/>
-                        </div>
-                        <div class="center">
-                            <img src="img/myBanana3.png" alt="banana" width="600" height="300"/>
-                        </div>
-                        <div class="center">
-                            <img src="img/myBanana4.png" alt="banana" width="600" height="300"/>
-                        </div>
-                        <div class="center">
-                            <img src="img/myBanana5.png" alt="banana" width="600" height="300"/>
-                        </div>
-                        <div class="center">
-                            <p>The results were the same on my images as they were for the test images, no bounding boxes were shown in the image.</p>
-                        </div>
-                    </article> -->
-                </div>
+            <h2>Part 0: Setup </h2>
+            <h3>The DeepFloyd IF diffusion model is going to be used in this project. DeepFloyd is trained and released by Stability AI. It's first stage generates images with size 64 x 64, the second stage take the outputs of the first stage and produces images with size 256 x 256.</h3>
+            <h3>Tasks: Text-to-image sampling with provided prompts</h3>
+            <ul>
+                <li>For each of the three provided text prompts, generate an image using the DeepFloyd IF model and display both the prompt and the generated result. Briefly comment on the quality of each output and how well it matches the prompt. 
+                    Try at least two different values of num_inference_steps and mention anything you observe from changing this parameter.</li>
+                <li>Report the random seed you use. You should use the same seed for all parts of the project that involve image generation. </li>
+            </ul>
+            <div class="images">
+                <article class="center">
+                    <div >
+                        <img src="img/num_inf_20.png" alt="3 ai generated images" width="600" height="125"/>
+                    </div>
+                    <div>
+                        <p>For all the generated images I used 150 as the random seed. The image above was generated using the first stage of the model with a number of inference steps of 20. Due to the size of the images, it is hard to see some of the detail, but you can see the images match the prompts. 
+                            The snowy mountain image has one orange point on the mountain that stands out as being off but could possibly be sunlight. The man wearing a hat image looks really good without noticeable mistakes. The rocket ship has a tail behind the flames
+                                and the left wing looks solid red where the right is white with a red outline.
+                                The 3 following images are the same as above only separated to show more detail. </p>
+                    </div>
+                    <div >
+                        <img src="img/stage1_inf_20_oil.png" alt="oil painting" width="580" height="200"/>
+                    </div>
+                    <div>
+                        <img src="img/stage1_inf_20_hat.png" alt="man wearing a hat" width="300" height="200"/>
+                    </div>
+                    <div>
+                        <img src="img/stage1_inf_20_rocket.png" alt="rocket ship" width="200" height="200"/>
+                    </div>
+                    <div>
+                        <p>The images below were generated using the second stage of the model with a number of inference steps of 20.</p>
+                    </div>
+                    <div>
+                        <img src="img/num_infer_20.png" alt="3 ai generated images" width="600" height="225"/>
+                    </div>
+                    <div>
+                        <p>With the larger size of the images, it is easier to see the details and you can clearly see the images match the prompts. The snowy mountain image has more orange on the mountains as sunlight reflection. 
+                            The man wearing a hat image is by far the best in my opinion. The rocket ship has the same issues as the first stage image did. </p>
+                    </div>
+                    <div>
+                        <p>The images below were also generated using the second stage of the model but with a number of inference steps of 100.</p>
+                    </div>
+                    <div>
+                        <img src="img/num_infer_100.png" alt="3 ai generated images" width="600" height="225"/>
+                    </div>
+                    <div>
+                        <p>I was surprised to see the images changed with a higher number of inference steps. I thought it would simply cause the image to be refined more, but I didn't realize they would change completely.  
+                            The snowy mountain image feels off with the layer look on the side of the mountain and what looks like the side of a building on the lower left but is a hill behind. The man wearing a hat image again 
+                            looks the best of the three to me. The rocket ship has two lines pointing up from the wings making the image seem as if the ship is landing like space-X ships rather than taking off, but the prompt 
+                            doesn't say any action only a rocket ship. Both the first and second stages have the ship flying within one would assume earth's atmosphere instead of outer space.</p>
+                    </div>
+                    <div>
+                        <p>The images below were again generated using the second stage of the model with a number of inference steps of 500.</p>
+                    </div>
+                    <div>
+                        <img src="img/num_infer_500.png" alt="3 ai generated images" width="600" height="225"/>
+                    </div>
+                    <div>
+                        <p>To me, I find the last three at inference steps of 500 to the worst. The snowy mountain image seems more cartoonish to me. The man wearing a hat image again has great details around the eyes, but the 
+                            teeth area is off making it look like he is wearing a mouthpiece/guard. The rocket ship looks very bad to me. It is very cartoonish with multiple issues with the wings, fuselage, and exhaust. </p>
+                    </div>
+                </article>
             </div>
+            
         </div>
         <br>
         <div class="tab">
-            <h2>Part 2: Non-Maximum Suppression (NMS)</h2>
-            <h3>Implement NMS to process the object detector's output. </h3>
-            <div>
-                <h3>Tasks:</h3>
-                <ul>
-                    <li>Visualize outputs before/after NMS.</li>
-                    <li>Compare with PyTorch's NMS implementation. Any difference?</li>
-                    <li>Discuss its purpose and limitations.</li>
-                </ul>
-                <div class="images">
-                    <!-- <article>
-                        <div class="center">
-                            <img src="img/nms1.png" alt="banana" width="700" height="300"/>
-                        </div>
-                        <div class="center">
-                            <img src="img/nms2.png" alt="banana" width="700" height="300"/>
-                        </div>
-                        <div class="center">
-                            <img src="img/nms3.png" alt="banana" width="700" height="300"/>
-                        </div>
-                        <div class="center">
-                            <img src="img/nms4.png" alt="banana" width="700" height="300"/>
-                        </div>
-                        <div class="center">
-                            <img src="img/nms5.png" alt="banana" width="700" height="300"/>
-                        </div>
-                        <div class="center">
-                            <p>I used the same test images from Part 1, but these results didn't have bounding boxes either. Due to this I wasn't able to<br>compare them to be able to say whether there was a difference or not.
-                            The purpose of NMS is to remove<br>overlapping and redundant bounding boxes keeping the most confident bounding boxes for the model. However,<br>
-                            there is the possibility that NMS could remove valid boxes causing missed detections.</p>
-                        </div>
-                    </article> -->
-                </div>
-            </div>
-        </div>
-        <br>
-        <div class="tab">
-            <h2>Part 3: Human-Object Interaction (HOI) Analysis using VLMs</h2>
-            <h3>Perform zero-shot HOI analysis using VLMs on a subset of HICO-DET dataset (huggingface zhimeng/hico_det  Datasets at Hugging Face). </h3>
+            <h2>Part 1: Understanding the Forward & Reverse Processes</h2>
+            <h3>1.1 Forward Process (Adding Noise)</h3>
+            <h4>The forward process gradually adds Gaussian noise to a clean image according to a predefined noise schedule. Your goal is to implement this process and visualize how the image degrades as noise increases.</h4>
             <h3>Tasks:</h3>
             <ul>
-                <li>Use one (or more) open-source or closed-source VLMs (e.g., Gemini, GPT, LLaVA, Qwen) to predict human-object interactions.</li>
-                <ul>
-                    <li>Come up with your prompt to guide the VLMs to predict &ltinteraction object&gt. For example, &lthold apple&gt, &ltride bicycle&gt.</li>
-                </ul>
-                <li>Can you identify a few failure cases where VLMs fail to prediction the HOI classes for the given images? If so, discuss the possible reasons. </li>
-                <li>Give it a try to fix the failure cases via better prompts or few-shot examples (in-context learning). Discuss if your solution works or the failure cases still cannot be solved. </li>
+                <li>Implement a function noisy_im = forward(im, t) that takes an image and a timestep and returns the noisy version of the image.</li>
+                <li>You need to use the list alphas_cumprod variable.</li>
+                <li>Apply your function to a test image at t = 250, 500, 750</li>
             </ul>
-            
+            <h3>1.2 Traditional Denoising (Gaussian Blur)</h3>
+            <h4>Before using a diffusion model to denoise, we will first try a traditional method: Gaussian filtering, which has been implemented in Project 1 - Part 2(d).<br>You will see that while Gaussian filtering 
+                can smooth out some noise, it also destroys important image details, especially when the noise level is high.</h4>
+            <h3>Tasks:</h3>
+            <ul>
+                <li>Take the three noisy images from Part 1.1 at timesteps $t = 250, 500, 750$</li>
+                <li>For each noisy image, apply Gaussian filtering. Tune the blur parameters (kernel size or sigma) to get your best denoised result for each timestep. </li>
+                <li>For t = 250, 500, 750, a figure (or three figures) showing: <br>Top row: noisy images at each timestep. <br>Bottom row: your best Gaussian-denoised images for the same timesteps.</li>
+            </ul>
             <div class="images">
-                <br>
-                <div>
-                    <h3>Base Prompt</h3>
-                </div>
-                <div>
-                    <p>I want to use you as an HOI (human-object interaction). For the main person in the image, list what interactions the person is doing with physical objects. Use the the format ("object", "interaction"). Make sure to keep the format brackets and order "object" -> "interaction".</p>
-                </div>
-                <!-- <div class="center">
-                    <table border="1">
-                        <tr>
-                            <th>Image</th>
-                            <th>Ground Truth</th>
-                            <th>Gemini 2.5 Flash</th>
-                            <th>Claude 4.5</th>
-                        </tr>
-                        <tr>
-                            <td>
-                                <img src="img/Baseball.png" alt="Baseball" width="220" height="150"/>
-                            </td>
-                            <td>
-                                <p>[('baseball_bat', 'hold'),<br> ('baseball_bat', 'swing'),<br> ('baseball_bat', 'wield')]</p>
-                            </td>
-                            <td>
-                                <p><b>Batter (Person in Red Uniform)</b><br>
-                                    <span style="color:red;">("bat", "swinging")</span>,<br>("helmet", "wearing"), <br>("glove (on hands)", "wearing"), <br>("leg guard", "wearing"), <br>("dirt/ground", "standing on"), <br>("uniform (shirt/pants)", "wearing"), 
-                                    <br>("shoes", "wearing") <br><b>Catcher (Person in Black/Gray Uniform)</b> <br>("mitt/glove", "holding"), <br>("mask/helmet", "wearing"), <br>("chest protector", "wearing"), <br>("shin guards", "wearing"),
-                                    <br>("dirt/ground", "kneeling/crouching on"), <br>("shoes", "wearing")</p>
-                            </td>
-                            <td>
-                                <p><b>Batter (center, in red uniform):</b><br>
-                                <span style="color:red;">("baseball bat", "swinging")</span>, <br>("helmet", "wearing"), <br>("jersey", "wearing"), <br>("pants", "wearing"), <br>("batting gloves", "wearing"), <br>("cleats", "wearing"), <br>("socks", "wearing"), <br>
-                                ("ground", "standing on"), <br><b>Catcher (left, crouching):</b><br>
-                                ("catcher's mask", "wearing"), <br>("catcher's mitt", "wearing"), <br>("chest protector", "wearing"), <br>("shin guards", "wearing"), <br>("ground", "crouching on")<br>
-                                <b>People in dugout (background):</b><br>("dugout", "standing in"), <br>("uniforms", "wearing")<br>
-                                <b>Spectators (background right):</b><br>("stands", "sitting in")
-                                </p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <img src="img/Snowboarder.png" alt="Snow Boarding" width="220" height="150"/>
-                            </td>
-                            <td>
-                                <p>[('snowboard', 'hold'), <br>('snowboard', 'jump'), <br>('snowboard', 'ride'), <br>('snowboard', 'stand_on'), <br>('snowboard', 'wear')]</p>
-                            </td>
-                            <td>
-                                <p>
-                                    <span style="color:red;">("snowboard", "riding/attached to")</span>, <br>("bindings", "attached to"), <br>("boots", "wearing"),<br>
-                                    ("jacket", "wearing"), <br>("pants", "wearing"), <br>("goggles/sunglasses", "wearing"), <br>("air", "flying in")
-                                </p>
-                            </td>
-                            <td>
-                                <p>
-                                    <span style="color:red;">("snowboard", "riding")</span>, <br>("snowboard", "gripping"), <br>("jacket", "wearing"), <br>("snow pants", "wearing"), <br>("helmet", "wearing"),<br>
-                                    ("goggles", "wearing"), <br>("gloves", "wearing"), <br>("boots", "wearing"), <br>("air", "jumping through")
-                                </p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <img src="img/Skateshop.png" alt="Skate shop" width="150" height="200"/>
-                            </td>
-                            <td>
-                                <p>[('skateboard', 'no_interaction')]</p>
-                            </td>
-                            <td>
-                                <p>
-                                    ("sunglasses", "wearing"), <br>("ring", "wearing"), <br>("counter/surface", "resting hand on"), <br>("skateboard decks", "standing in front of"), <br>("tank top", "wearing"),<br>
-                                    ("pen/small object", "holding/touching")
-                                </p>
-                            </td>
-                            <td>
-                                <p>
-                                    ("sunglasses", "wearing"), <br>("tank top", "wearing"), <br>("ring", "wearing"), <br>("counter", "leaning on"), <br>("skateboard wall display", "standing in front of")
-                                </p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <img src="img/Soccer.png" alt="Soccer" width="220" height="150"/>
-                            </td>
-                            <td>
-                                <p>[('sports_ball', 'carry'), <br>('sports_ball', 'hold')]</p>
-                            </td>
-                            <td>
-                                <p>
-                                    <b>main person in the red and white uniform:</b><br>
-                                    <span style="color:red;">("soccer ball", "holding")</span>, <br>("grass/field", "running/standing on"), <br>("uniform/kit", "wearing"),<br>
-                                    ("boots (cleats)", "wearing"), <br>("flagpole", "running near")<br>
-                                    <b>players in the background:</b><br>
-                                    ("grass/field", "running/standing on"), <br>("soccer ball", "kicking/running near (implied)"), <br>("uniforms/kits", "wearing")
-                                </p>
-                            </td>
-                            <td>
-                                <p>
-                                    <b>Player in red/white (foreground):</b><br>
-                                    <span style="color:red;">("soccer ball", "holding")</span>, <br>("jersey", "wearing"), <br>("shorts", "wearing"), <br>("soccer cleats", "wearing"), <br>("field", "walking on")<br>
-                                    <b>Players in blue/white (background):</b><br>
-                                    ("jerseys", "wearing"), <br>("shorts", "wearing"), <br>("soccer cleats", "wearing"), <br>("field", "walking on")<br>
-                                    <b>Players in red/white (background):</b><br>
-                                    ("jerseys", "wearing"), <br>("shorts", "wearing"), <br>("soccer cleats", "wearing"), <br>("field", "walking on")
-                                </p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <img src="img/Boats.png" alt="Boats" width="220" height="150"/>
-                            </td>
-                            <td>
-                                <p>[('boat', 'ride'), <br>('boat', 'sail'), <br>('boat', 'stand_on')]</p>
-                            </td>
-                            <td>
-                                <p>
-                                    <b>Boat in the Foreground (Right)</b><br>
-                                    <span style="color:red;">("boat/dhow", "sailing on")</span>, <br>("sail", "operating/managing"), <br>("water", "floating on")<br>
-                                    <b>Boat in the Background (Left)</b><br>
-                                    <span style="color:red;">("boat/dhow", "sailing on")</span>, <br>("sail", "operating/managing"), <br>("water", "floating on")
-                                </p>
-                            </td>
-                            <td>
-                                <p>
-                                    <b>People on right sailboat (foreground):</b><br>
-                                    <span style="color:red;">("sailboat", "sailing")</span>, <br>("sailboat", "sitting in"), <br>("sail", "operating"), <br>("rudder", "steering")<br>
-                                    <b>People on left sailboat (background):</b><br>
-                                    <span style="color:red;">("sailboat", "sailing")</span>, <br>("sailboat", "sitting in"), <br>("sail", "operating"), <br>("rudder", "steering")
-                                </p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <img src="img/Planes.png" alt="Planes" width="220" height="150"/>
-                            </td>
-                            <td>
-                                <p>[('airplane', 'no_interaction')]</p>
-                            </td>
-                            <td>
-                                <p>
-                                    The image shows several parked airliners <br>
-                                    and there are no people visibly <br>
-                                    interacting with the physical objects in<br>
-                                    the immediate foreground or midground. <br>
-                                    Therefore, I cannot list any human-object <br>
-                                    interactions in the format you requested <br>
-                                    based on this specific picture.
-                                </p>
-                            </td>
-                            <td>
-                                <p>
-                                    <b>Person near building (bottom right):</b><br>
-                                    ("tarmac", "standing on"), <br>("clothing", "wearing")<br>  
-                                    Note: The people in this <br>
-                                    image are quite small and distant,<br>
-                                    making it difficult to identify<br>
-                                    specific detailed interactions<br>
-                                    beyond basic presence and standing<br>
-                                    on the ground surface.
-                                </p>
-                            </td>
-                        </tr>
-                    </table> -->
+                <article class="center">
                     <br>
-                    <p class="tab"> 
-                        For this project, wanted to use to use two Vision Language Models (VLM) that are considered strong but are recognized for different aspects. 
-                        Google Gemini 2.5 Flash is known for excelling in multimodal tasks while Claude 4.5 is recognized for its structured and reliable responses, especially in technical contexts. 
-                        From the results, they are generally good at human object interaction detection (HoI) with one minor incorrect response by Claude. 
-                        I was surprised at how many HoI's were found by both compared to the ground truth, but didn't find all the listed ground truths. This leads me to wonder if the ground truths should be expanded or updated. 
-                        The matching HoI's to the ground truth are in red. There was one incorrect finding in the Airplane image by Claude, it detected a human in the lower right corner. 
-                        There is an object, just not a human. It was possibly due to how small the object is and it being near the shack.
-                    </p>
-                    <br>
-                    <h3>Prompt Adjustment</h3>
-                    <p class="tab">
-                        I want to use you as an HOI (human-object interaction). For the main person in the image, list what interactions the person is doing with physical objects. 
-                        Use the format ("object", "interaction"). Make sure to keep the format brackets and order "object" -> "interaction". If there is no clear interaction: output (no_interaction).
-                     </p>
-                    <!-- <table border="1">
-                        <tr>
-                            <th>Image</th>
-                            <th>Ground Truth</th>
-                            <th>Gemini 2.5 Flash</th>
-                            <th>Claude 4.5</th>
-                        </tr>
-                        <tr>
-                            <td>
-                                <img src="img/Baseball.png" alt="Baseball" width="220" height="150"/>
-                            </td>
-                            <td>
-                                <p>[('baseball_bat', 'hold'),<br> ('baseball_bat', 'swing'),<br> ('baseball_bat', 'wield')]</p>
-                            </td>
-                            <td>
-                                <p>
-                                    <b>main person</b><br>(the batter in the red uniform):<br>
-                                    <span style="color:red;">("bat", "swinging")</span>, <br>("helmet", "wearing"), <br>("glove (on hands)", "wearing"), <br>("leg guard", "wearing"),<br>
-                                    ("uniform (shirt)", "wearing"), <br>("uniform (pants)", "wearing"), <br>("shoes", "wearing"), <br>("dirt/ground", "standing on")
-                            </td>
-                            <td>
-                                <p>
-                                    <b>main person (the batter in red):</b><br>
-                                    <span style="color:red;">("bat", "holding")</span>, <br><span style="color:red;">("bat", "swinging")</span>, <br>("helmet", "wearing"),
-                                    <br>("uniform", "wearing"), <br>("batting gloves", "wearing"), <br>("socks", "wearing"), <br>("cleats", "wearing")
-                                </p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <img src="img/Soccer.png" alt="Soccer" width="220" height="150"/>
-                            </td>
-                            <td>
-                                <p>[('sports_ball', 'carry'), <br>('sports_ball', 'hold')]</p>
-                            </td>
-                            <td>
-                                <p>
-                                    <b>main person in the image</b><br>
-                                    (player in the foreground wearing <br>the red and white uniform):<br>
-                                    <span style="color:red;">("soccer ball", "holding")</span>, <br>("grass/field", "running/standing on"), <br>("uniform/kit", "wearing"),<br>
-                                    ("boots (cleats)", "wearing"), <br>("flagpole", "running near")
-
-                                </p>
-                            </td>
-                            <td>
-                                <p>
-                                    <b>main person (the player in red with the ball):</b><br>
-                                    <span style="color:red;">("soccer ball", "holding")</span>, <br><span style="color:red;">("soccer ball", "carrying")</span>, <br>("jersey", "wearing"),
-                                    <br>("shorts", "wearing"), <br>("socks", "wearing"), <br>("cleats", "wearing"), <br>("grass", "walking on")
-                                </p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <img src="img/Planes.png" alt="Planes" width="220" height="150"/>
-                            </td>
-                            <td>
-                                <p>[('airplane', 'no_interaction')]</p>
-                            </td>
-                            <td>
-                                <p>
-                                    <span style="color:red;">(no_interaction)</span>
-                                </p>
-                            </td>
-                            <td>
-                                <p>
-                                    <span style="color:red;">(no_interaction)</span>
-                                </p>
-                            </td>
-                        </tr>
-                    </table> -->
                     <div>
-                        <p class="tab">
-                            After adjusting the prompt to specify the main person in the image, the results for Claude did improve by 
-                            finding one more of the ground truth for the Baseball and Soccer images. Claude also didn't detect a human 
-                            in the Airplane image this time.
-                        </p>
+                        <img src="img/blur_k5_s1.png" alt="Lighthouse" width="600" height="350"/>
                     </div>
-                </div>
-            </div>   
+                    <div>
+                        <p>For the Gaussian filtering I used a kernel size of 5 and a sigma of 1. I found these to be the best denoised results for each timestamp.</p>
+                    </div>
+                    <br>
+                </article>
+            </div>
+            <h3>1.3 One-Step Denoising (Using a Pretrained UNet)</h3>
+            <h4>In this part, you will perform one-step denoising using a pretrained diffusion model (denoising UNet, stage_1.unet) to do denoising. The UNet has been trained on a very large dataset of (x<sub>0</sub>, x<sub>t</sub>)
+                 pairs of images, thus, it can be used to recover Gaussian noise from an image. </h4>
+            <h3>Tasks:</h3>
+            <ul>
+                <li>Take the three noisy images from Part 1.1 at timesteps t = 250, 500, 750</li>
+                <ul>
+                    <li>Use the pretrained UNet, predict the noise and then denoise the imaage using Equation 1.3. </li>
+                    <li>Show the original image, the noisy image, and the estimate of the original (clean) image</li>
+                </ul>
+            </ul>
+            <div class="images">
+                <article class="center">
+                    <br>
+                    <div>
+                        <img src="img/One_step.png" alt="Lighthouse" width="600" height="600"/>
+                    </div>
+                </article>
+            </div>
+            <h3>1.4 Iterative Denoising</h3>
+            <h4>In Part 1.3 you saw that a single denoising step can already recover a reasonable image when the noise level is moderate. As we discussed in class, diffusion models are designed to denoise gradually, 
+                starting from very noisy images and stepping toward a clean sample. <br>Ideally, we should start with noise $x_{1000}$ at time step T = 1000, denoise for one step to get an estimate of x<sub>999</sub>, 
+                and keep doing this untile we get x<sub>0</sub>. This means that we need to run the diffusion model (UNet) 1000 times, which is very slow! <br>In practice, we can speed up by skipping steps, you may get 
+                this idea in Part 1.3 where you may find that using smaller T, the denoising result is not bad. <br>To skip steps, we can use a list of timesteps strided_timesteps, which is much shorter than the full list 
+                of 1000 timesteps. strided_timesteps[0] will correspond to the noisiest image (and thus the largest t) and strided_timesteps[-1] will correspond to a clean image (and thus t = 0). One option of constructing 
+                this list is by introducing a regular stride step (e.g. stride of 30).</h4>
+            <h3>Tasks:</h3>
+            <p>Using i_start = 10</p>
+            <ul>
+                <li>Create strided_timesteps: a list of monotonically decreasing timesteps, starting at 990, with a stride of 30, eventually reaching 0. Also initialize the timesteps using the function stage_1.scheduler.set_timesteps(timesteps=strided_timesteps)</li>
+                <li>Complete the iterative_denoise function </li>
+                <li>Show the noisy image every 5th loop of denoising (it should gradually become less noisy)</li>
+                <li>Show the final predicted clean image, using iterative denoising</li>
+                <li>Show the predicted clean image using only a single denoising step, as was done in the previous part. This should look much worse.</li>
+                <li>Show the predicted clean image using gaussian blurring, as was done in Part 1.2.</li>
+            </ul>
+            <div class="images">
+                <!-- <article class="center">
+                    <br>
+                    <div>
+                        <img src="img/One_step.png" alt="Lighthouse" width="600" height="600"/>
+                    </div>
+                </article> -->
+            </div>
+        </div>
+        <br>
+        <div class="tab">
+            <h2>Part 2: Understanding the Forward & Reverse Processes</h2>
+            <h3>2.1 Diffusion Model Sampling</h3>
+            <h4>In Part 1.4, we use the diffusion model to denoise an image. We can also use iterative_denoise function to generate images from random noise. We can do this by setting i_start = 0 and passing in random noise. This effectively denoises pure noise. </h4>
+            <h3>Tasks:</h3>
+            <ul>
+                <li>Generate images from random noise, and show 5 results of "a high quality photo". Show 5 sampled images.</li>
+            </ul>
+            <div class="images">
+                <!-- <article>
+                    <div class="center">
+                        <img src="img/nms1.png" alt="banana" width="700" height="300"/>
+                    </div>
+                    <div class="center">
+                        <img src="img/nms2.png" alt="banana" width="700" height="300"/>
+                    </div>
+                    <div class="center">
+                        <img src="img/nms3.png" alt="banana" width="700" height="300"/>
+                    </div>
+                    <div class="center">
+                        <img src="img/nms4.png" alt="banana" width="700" height="300"/>
+                    </div>
+                    <div class="center">
+                        <img src="img/nms5.png" alt="banana" width="700" height="300"/>
+                    </div>
+                    <div class="center">
+                        <p>I used the same test images from Part 1, but these results didn't have bounding boxes either. Due to this I wasn't able to<br>compare them to be able to say whether there was a difference or not.
+                        The purpose of NMS is to remove<br>overlapping and redundant bounding boxes keeping the most confident bounding boxes for the model. However,<br>
+                        there is the possibility that NMS could remove valid boxes causing missed detections.</p>
+                    </div>
+                </article> -->
+            </div>
+            <h3>2.2 Classifier Free Guidance</h3>
+            <h4>You may have observed that some of the generated images in the last section (Part 2.1) are not very good. In order to improve image quality (may at the cost of image diversity), we can use a technique called Classifier-Free Guidance (CFG). </h4>
+            <h3>Tasks:</h3>
+            <ul>
+                <li>Implement the iterative_denoise_cfg function, identical to the iterative_denoise function but using classifier-free guidance (CFG). To get an unconditional noise estimate, we can just pass an empty prompt embedding to the diffusion model (the model 
+                    was trained to predict an unconditional noise estimate when given an empty text prompt).</li>
+                <li>Show 5 images of "a high quality photo" with a CFG scale of &gamma; = 7</li>
+            </ul>
+            <div class="images">
+                <!-- <article>
+                    <div class="center">
+                        <img src="img/nms1.png" alt="banana" width="700" height="300"/>
+                    </div>
+                    <div class="center">
+                        <img src="img/nms2.png" alt="banana" width="700" height="300"/>
+                    </div>
+                    <div class="center">
+                        <img src="img/nms3.png" alt="banana" width="700" height="300"/>
+                    </div>
+                    <div class="center">
+                        <img src="img/nms4.png" alt="banana" width="700" height="300"/>
+                    </div>
+                    <div class="center">
+                        <img src="img/nms5.png" alt="banana" width="700" height="300"/>
+                    </div>
+                    <div class="center">
+                        <p>I used the same test images from Part 1, but these results didn't have bounding boxes either. Due to this I wasn't able to<br>compare them to be able to say whether there was a difference or not.
+                        The purpose of NMS is to remove<br>overlapping and redundant bounding boxes keeping the most confident bounding boxes for the model. However,<br>
+                        there is the possibility that NMS could remove valid boxes causing missed detections.</p>
+                    </div>
+                </article> -->
+            </div>
+            <h3>2.3 Image-to-image Translation</h3>
+            <h4>Here, we're going to take the original test image, noise it a little, and force it back onto the image manifold without any conditioning. Effectively, we're going to get an image that is similar to the test image (with a low-enough noise level). This follows the SDEdit algorithm.</h4>
+            <h3>Tasks:</h3>
+            <ul>
+                <li>Edits of the test image, using the given prompt at noise levels [1, 3, 5, 7, 10, 20] with text prompt "a high quality photo"</li>
+                <li>Edits of 2 of your own test images, using the same procedure.</li>
+            </ul>
+            <div class="images">
+                <!-- <article>
+                    <div class="center">
+                        <img src="img/nms1.png" alt="banana" width="700" height="300"/>
+                    </div>
+                    <div class="center">
+                        <img src="img/nms2.png" alt="banana" width="700" height="300"/>
+                    </div>
+                    <div class="center">
+                        <img src="img/nms3.png" alt="banana" width="700" height="300"/>
+                    </div>
+                    <div class="center">
+                        <img src="img/nms4.png" alt="banana" width="700" height="300"/>
+                    </div>
+                    <div class="center">
+                        <img src="img/nms5.png" alt="banana" width="700" height="300"/>
+                    </div>
+                    <div class="center">
+                        <p>I used the same test images from Part 1, but these results didn't have bounding boxes either. Due to this I wasn't able to<br>compare them to be able to say whether there was a difference or not.
+                        The purpose of NMS is to remove<br>overlapping and redundant bounding boxes keeping the most confident bounding boxes for the model. However,<br>
+                        there is the possibility that NMS could remove valid boxes causing missed detections.</p>
+                    </div>
+                </article> -->
+            </div>
+        </div>
+        <br>
+        <div class="tab">
+            <h2>Part 3: Visual Anagrams (Graduate Students)</h2>
+            <h3>In this part, we will implement Visual Anagrams (CVPR 2024) and create optical illusions with diffusion models. For example, the task is to create an image that looks like "an oil painting of an old man", but when flipped upside down will reveal "an oil painting of people around a campfire".</h3>
+            <h3>Tasks:</h3>
+            <ul>
+                <li>Implemented visual_anagrams function</li>
+                <li>A visual anagram where on one orientation "an oil painting of people around a campfire" is displayed and, when flipped, "an oil painting of an old man" is displayed. </li>
+                <li>2 more illusions of your choice that change appearance when you flip it upside down (see the appendix to generate your own prompts) </li>
+            </ul>
+            <div class="images">
+                <!-- <article>
+                    <div class="center">
+                        <img src="img/nms1.png" alt="banana" width="700" height="300"/>
+                    </div>
+                    <div class="center">
+                        <img src="img/nms2.png" alt="banana" width="700" height="300"/>
+                    </div>
+                    <div class="center">
+                        <img src="img/nms3.png" alt="banana" width="700" height="300"/>
+                    </div>
+                    <div class="center">
+                        <img src="img/nms4.png" alt="banana" width="700" height="300"/>
+                    </div>
+                    <div class="center">
+                        <img src="img/nms5.png" alt="banana" width="700" height="300"/>
+                    </div>
+                    <div class="center">
+                        <p>I used the same test images from Part 1, but these results didn't have bounding boxes either. Due to this I wasn't able to<br>compare them to be able to say whether there was a difference or not.
+                        The purpose of NMS is to remove<br>overlapping and redundant bounding boxes keeping the most confident bounding boxes for the model. However,<br>
+                        there is the possibility that NMS could remove valid boxes causing missed detections.</p>
+                    </div>
+                </article> -->
+            </div>  
         </div>
     </main>
 </body>
