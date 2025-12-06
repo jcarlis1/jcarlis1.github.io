@@ -163,12 +163,15 @@
                 <li>Show the predicted clean image using gaussian blurring, as was done in Part 1.2.</li>
             </ul>
             <div class="images">
-                <!-- <article class="center">
+                <article class="center">
                     <br>
                     <div>
-                        <img src="img/One_step.png" alt="Lighthouse" width="600" height="600"/>
+                        <img src="img/noisyImages.png" alt="Lighthouse" width="600" height="300"/>
                     </div>
-                </article> -->
+                    <div>
+                        <img src="img/1_4Images.png" alt="Lighthouse" width="600" height="200"/>
+                    </div>
+                </article>
             </div>
         </div>
         <br>
@@ -181,28 +184,18 @@
                 <li>Generate images from random noise, and show 5 results of "a high quality photo". Show 5 sampled images.</li>
             </ul>
             <div class="images">
-                <!-- <article>
+                <article>
                     <div class="center">
-                        <img src="img/nms1.png" alt="banana" width="700" height="300"/>
+                        <img src="img/1_5.png" alt="5 generated images" width="600" height="350"/>
                     </div>
                     <div class="center">
-                        <img src="img/nms2.png" alt="banana" width="700" height="300"/>
+                        <p>Top-left - it looks like lily pads in a pond maybe<br>
+                        Top- middle - a childs doll <br>
+                        Top-right - a childs valcano assignment<br>
+                        Bottom-left - a person in the woods on a winter day<br>
+                        Bottom-middle - a skunk curled up maybe</p>
                     </div>
-                    <div class="center">
-                        <img src="img/nms3.png" alt="banana" width="700" height="300"/>
-                    </div>
-                    <div class="center">
-                        <img src="img/nms4.png" alt="banana" width="700" height="300"/>
-                    </div>
-                    <div class="center">
-                        <img src="img/nms5.png" alt="banana" width="700" height="300"/>
-                    </div>
-                    <div class="center">
-                        <p>I used the same test images from Part 1, but these results didn't have bounding boxes either. Due to this I wasn't able to<br>compare them to be able to say whether there was a difference or not.
-                        The purpose of NMS is to remove<br>overlapping and redundant bounding boxes keeping the most confident bounding boxes for the model. However,<br>
-                        there is the possibility that NMS could remove valid boxes causing missed detections.</p>
-                    </div>
-                </article> -->
+                </article>
             </div>
             <h3>2.2 Classifier Free Guidance</h3>
             <h4>You may have observed that some of the generated images in the last section (Part 2.1) are not very good. In order to improve image quality (may at the cost of image diversity), we can use a technique called Classifier-Free Guidance (CFG). </h4>
@@ -213,28 +206,19 @@
                 <li>Show 5 images of "a high quality photo" with a CFG scale of &gamma; = 7</li>
             </ul>
             <div class="images">
-                <!-- <article>
+                <article>
                     <div class="center">
-                        <img src="img/nms1.png" alt="banana" width="700" height="300"/>
+                        <img src="img/1_6.png" alt="5 generated images" width="600" height="350"/>
                     </div>
                     <div class="center">
-                        <img src="img/nms2.png" alt="banana" width="700" height="300"/>
+                        <p>These came out a lot better than other ones.<br>
+                        Top-left - a girl<br>
+                        Top- middle - a pier and sunset<br>
+                        Top-right - a guy<br>
+                        Bottom-left - a laje and mountains during sunset<br>
+                        Bottom-middle - a girl</p>
                     </div>
-                    <div class="center">
-                        <img src="img/nms3.png" alt="banana" width="700" height="300"/>
-                    </div>
-                    <div class="center">
-                        <img src="img/nms4.png" alt="banana" width="700" height="300"/>
-                    </div>
-                    <div class="center">
-                        <img src="img/nms5.png" alt="banana" width="700" height="300"/>
-                    </div>
-                    <div class="center">
-                        <p>I used the same test images from Part 1, but these results didn't have bounding boxes either. Due to this I wasn't able to<br>compare them to be able to say whether there was a difference or not.
-                        The purpose of NMS is to remove<br>overlapping and redundant bounding boxes keeping the most confident bounding boxes for the model. However,<br>
-                        there is the possibility that NMS could remove valid boxes causing missed detections.</p>
-                    </div>
-                </article> -->
+                </article>
             </div>
             <h3>2.3 Image-to-image Translation</h3>
             <h4>Here, we're going to take the original test image, noise it a little, and force it back onto the image manifold without any conditioning. Effectively, we're going to get an image that is similar to the test image (with a low-enough noise level). This follows the SDEdit algorithm.</h4>
@@ -244,28 +228,25 @@
                 <li>Edits of 2 of your own test images, using the same procedure.</li>
             </ul>
             <div class="images">
-                <!-- <article>
+                <article>
                     <div class="center">
-                        <img src="img/nms1.png" alt="banana" width="700" height="300"/>
+                        <figure>
+                            <img src="img/campanile.jpg" alt="Lighthouse" width="200" height="250"/>
+                            <img src="img/1_7Lighthouse.png" alt="Lighthouse" width="600" height="300"/>
+                            <figcaption>The original lighthouse image</figcaption>
+                        </figure>
+                        <figure>
+                            <img src="img/dog.jpg" alt="A dog and a guy" width="200" height="250">
+                            <img src="img/1_7DogAndMe.png" alt="Dog and me" width="600" height="300"/>
+                            <figcaption>My late dog and me</figcaption>
+                        </figure>
+                        <figure>
+                            <img src="img/resort.jpg" alt="High Hampton resort" width="275" height="200">
+                            <img src="img/1_7Resort.png" alt="Resort" width="600" height="300"/>
+                            <figcaption>A resort I worked at in North Carolina</figcaption>
+                        </figure>
                     </div>
-                    <div class="center">
-                        <img src="img/nms2.png" alt="banana" width="700" height="300"/>
-                    </div>
-                    <div class="center">
-                        <img src="img/nms3.png" alt="banana" width="700" height="300"/>
-                    </div>
-                    <div class="center">
-                        <img src="img/nms4.png" alt="banana" width="700" height="300"/>
-                    </div>
-                    <div class="center">
-                        <img src="img/nms5.png" alt="banana" width="700" height="300"/>
-                    </div>
-                    <div class="center">
-                        <p>I used the same test images from Part 1, but these results didn't have bounding boxes either. Due to this I wasn't able to<br>compare them to be able to say whether there was a difference or not.
-                        The purpose of NMS is to remove<br>overlapping and redundant bounding boxes keeping the most confident bounding boxes for the model. However,<br>
-                        there is the possibility that NMS could remove valid boxes causing missed detections.</p>
-                    </div>
-                </article> -->
+                </article>
             </div>
         </div>
         <br>
@@ -279,28 +260,17 @@
                 <li>2 more illusions of your choice that change appearance when you flip it upside down (see the appendix to generate your own prompts) </li>
             </ul>
             <div class="images">
-                <!-- <article>
+                <article>
                     <div class="center">
-                        <img src="img/nms1.png" alt="banana" width="700" height="300"/>
+                        <img src="img/part3OldMan.png" alt="An old man, flipped to a campfire" width="600" height="300"/>
                     </div>
                     <div class="center">
-                        <img src="img/nms2.png" alt="banana" width="700" height="300"/>
+                        <img src="img/part3Barista.png" alt="Barista flipped to a dog" width="600" height="300"/>
                     </div>
                     <div class="center">
-                        <img src="img/nms3.png" alt="banana" width="700" height="300"/>
+                        <img src="img/part3Skull.png" alt="waterfall flipped to a skull" width="600" height="300"/>
                     </div>
-                    <div class="center">
-                        <img src="img/nms4.png" alt="banana" width="700" height="300"/>
-                    </div>
-                    <div class="center">
-                        <img src="img/nms5.png" alt="banana" width="700" height="300"/>
-                    </div>
-                    <div class="center">
-                        <p>I used the same test images from Part 1, but these results didn't have bounding boxes either. Due to this I wasn't able to<br>compare them to be able to say whether there was a difference or not.
-                        The purpose of NMS is to remove<br>overlapping and redundant bounding boxes keeping the most confident bounding boxes for the model. However,<br>
-                        there is the possibility that NMS could remove valid boxes causing missed detections.</p>
-                    </div>
-                </article> -->
+                </article>
             </div>  
         </div>
     </main>
