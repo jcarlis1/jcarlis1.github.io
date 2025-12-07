@@ -117,3 +117,20 @@ figcaption {
     align-items: center;
     flex-direction: column;
 }
+
+@keyframes rotate-loop {
+  0%, 15% {
+    transform: rotate(0deg);
+  }
+  35%, 65% {
+    transform: rotate(180deg);
+  }
+  85%, 100% {
+    transform: rotate(0deg);
+  }
+}
+
+.infinite-spin {
+  /* Run the animation 'rotate-loop' over 4 seconds, forever */
+  animation: rotate-loop 4s infinite ease-in-out;
+}
