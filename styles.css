@@ -4,12 +4,14 @@
     --card: rgba(255,255,255,.08);
     --text:rgb(255, 0, 0);
     --ring: rgba(110,231,245,.55);
+    --report: white;
 }
 @media (prefers-color-scheme: light){
     :root{
     --bg:#f7f8fc;
     --card:#ffffff;
     --ring: rgba(37,99,235,.35);
+    --report: black;
     }
 }
 
@@ -27,6 +29,10 @@ body{
 .wrap{
     width:min(1100px, 92vw);
     margin:48px auto 80px;
+}
+
+.report {
+    color: var(--report);
 }
 
 header {
