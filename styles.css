@@ -1,11 +1,39 @@
+:root{
+    --bg: #1a204a;
+    --bg-box: lightblue;
+    --card: rgba(255,255,255,.08);
+    --text:rgb(255, 0, 0);
+    --ring: rgba(110,231,245,.55);
+}
+@media (prefers-color-scheme: light){
+    :root{
+    --bg:#f7f8fc;
+    --card:#ffffff;
+    --ring: rgba(37,99,235,.35);
+    }
+}
+
+/* Base */
+*{ box-sizing:border-box }
+html,body{ height:100% }
+body{
+    font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+    background:
+    radial-gradient(1200px 600px at 10% -20%, #3b82f680 0%, transparent 55%),
+    radial-gradient(1000px 500px at 110% 10%, #22d3ee60 0%, transparent 50%),
+    linear-gradient(180deg, var(--bg) 0%, var(--bg) 100%);
+    justify-content:center;
+}
+.wrap{
+    width:min(1100px, 92vw);
+    margin:48px auto 80px;
+}
 
 header {
-    /* height: 50px; */
-    background-color: lightblue;
+    background-color: var(--bg-box);
     position:relative;
     padding:28px 24px;
     border-radius:22px;
-    /* background:linear-gradient(180deg, var(--bg-soft), transparent 60%); */
     backdrop-filter:saturate(130%) blur(6px);
     border:1px solid rgba(255,255,255,.08);
     overflow:hidden;
@@ -23,22 +51,20 @@ header p {
     margin:0;
 }
 
-/* .row{
-  display: flex;
-  gap: 24px;
-} */
+.text {
+    color: var(--text);
+}
 
 .row {
     display: flex;
     justify-content: center;
-    /* align-items: center; */
     align-items: stretch; 
     gap: 2rem; 
     margin: 2rem auto;
 }
 
 a.inline{
-    color: rgb(255, 0, 0);
+    color: var(--text);
     text-underline-offset: 3px;
     text-decoration: none;
     border-bottom: 1px dashed transparent;
@@ -56,7 +82,7 @@ a.inline:hover{
     width: 300px;
     padding: 18px;
     border-radius:18px;
-    background: lightblue;
+    background: var(--bg-box);
     border: 1px solid rgba(255,0,0,.10);
     text-decoration: none;
     color: inherit;
@@ -67,15 +93,15 @@ a.inline:hover{
 .card:hover{
     transform: translateY(-3px);
     box-shadow: 0 12px 30px -12px var(--ring);
-    border-color: rgb(255, 0, 0);
+    border-color: var(--text);
 }
 .badge{
     display:inline-flex; align-items:center; gap:8px;
     font-weight:600; font-size:16px;
-    color: rgb(255, 0, 0);
+    color: var(--text);
     padding:6px 10px; border-radius:999px;
     background: linear-gradient(180deg, rgba(255,0,0,.10), rgba(255,0,0,.04));
-    border: 1px solid rgba(255, 0, 0);
+    border: 1px solid var(--text);
 }
 .title{ 
     margin:10px 0 4px; font-size:20px; font-weight:700 
@@ -104,7 +130,7 @@ h1 {
 }
 
 .images {
-    background-color: lightblue;
+    background-color: var(--bg-box);
 }
 
 figcaption {
@@ -134,3 +160,5 @@ figcaption {
   /* Run the animation 'rotate-loop' over 4 seconds, forever */
   animation: rotate-loop 4s infinite ease-in-out;
 }
+
+
