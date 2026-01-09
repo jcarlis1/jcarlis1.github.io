@@ -1,2 +1,2 @@
-# CSCI-581-Computer-Vision
-Fall 2025
+# CSCI-Courses
+Starting Fall 2025
