@@ -5,61 +5,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta author="Joey Carlisle">
     <link rel="icon" href="eye.png">
-    <title>CSCI 581 - Computer Vision</title>
+    <title>CSCI Grad Courses</title>
     <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
     <div class="wrap">
         <header>
-            <h1>CSCI 581 Computer Vision</h1>
-            <p>Project Reports by Joey Carlisle</p>
+            <h1>Ole Miss PhD Topics</h1>
+            <p>Reports by Joey Carlisle</p>
         </header>
-        
-        <h2 class="text">Projects</h2>
+
+        <h2 class="text">Courses</h2>
         <main>
             <div class="row">
-                <a class="card" href="./0/index.html">
+                <a class="card" href="./ComputerVision/index.html">
                     <span class="badge">
-                        Project 0 - Getting Started
+                        CSCI 581 - Special Topics
                     </span>
-                    <h3 class="title">Classification, Multilayer Perceptrons, &amp; Convolutional Neural Networks</h3>
+                    <h3 class="title">Computer Vision</h3>
                 </a>
-                <a class="card" href="./1/index.html">
+                <a class="card" href="./DeepLearning/index.html">
                     <span class="badge">
-                        Project 1 - Histogram and Filtering
+                        ENGR 691 - Sepcial Topics
                     </span>
-                    <h3 class="title">Histogram and Filtering</h3>
-                </a>
-            </div>
-            <br>
-            <div class="row">
-                <a class="card" href="./2/index.html">
-                    <span class="badge">
-                        Project 2 — Image Homography and Warping
-                    </span>
-                    <h3 class="title">Image Homography and Warping</h3>
-                </a>
-                <a class="card" href="./3/index.html">
-                    <span class="badge">
-                        Project 3 — Object Detection and Human–Object Interaction
-                    </span>
-                    <h3 class="title">Object Detection and Human–Object Interaction</h3>
+                    <h3 class="title">Deep Learning</h3>
                 </a>
             </div>
             <br>
-            <div class="row">
-                <a class="card" href="./4/index.html">
-                    <span class="badge">
-                        Project 4 — Diffusion Models
-                    </span>
-                    <h3 class="title">Diffusion Models</h3>
-                </a>
-            </div>
         </main>
         <br>
         <footer class="text">
-            Fall 2025
+            <span>
+                &#169;
+                <span id="year"></span>
+                - CS Portfolio
+            </span>
         </footer>
+        <script>
+            document.getElementById('year').textContent = new Date().getFullYear();
+        </script>
     </div>
 </body>
 </html>
