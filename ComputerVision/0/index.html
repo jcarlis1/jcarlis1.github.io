@@ -15,151 +15,153 @@
         <p> Full discloser: The instructions say to try to implement the code ourself and not just copy and paste the code from the book, but I just copied and pasted. </p>
     </header>
     <main>
-        <div>
-            <h2>Part 1</h2>
-            <h3>Question 1: Visualize 10 images form the dataset</h3>
-            <img src="img/visual.png" alt="10 clothing images with labels" width="600" height="300"/>
-            <h3>Question 2: Hyperparameter analysis</h3>
-            <h4>2.1: Try to use different learning rates, plot how validation loss changes. </h4>
-            <article class="results">
-                <figure>
-                    <img src="img/lr1.png" alt="graph" width="175" height="175"/>
-                    <figcaption>Learning rate of .1</figcaption>
-                </figure>
-                <figure>
-                    <img src="img/lr25.png" alt="graph" width="175" height="175"/>
-                    <figcaption>Learning rate of .25</figcaption>
-                </figure>
-                <figure>
-                    <img src="img/lr5.png" alt="graph" width="175" height="175"/>
-                    <figcaption>Learning rate of .5</figcaption>
-                </figure>
-                <figure>
-                    <img src="img/lr75.png" alt="graph" width="175" height="175"/>
-                    <figcaption>Learning rate of .75</figcaption>
-                </figure>
-            </article>
-            <p>All of the above graphs are with a batch size of 256</p>
-            <h4>2.2: Try to use different batch sizes, how validation and training loss changes?</h4>
-            <article class="results">
-                <figure>
-                    <img src="img/b50.png" alt="graph" width="175" height="175"/>
-                    <figcaption>batch size of 50</figcaption>
-                </figure>
-                <figure>
-                    <img src="img/b100.png" alt="graph" width="175" height="175"/>
-                    <figcaption>batch size of 100</figcaption>
-                </figure>
-                <figure>
-                    <img src="img/b150.png" alt="graph" width="175" height="175"/>
-                    <figcaption>batch size of 150</figcaption>
-                </figure>
-            </article>
-            <p>Each of the above graphs used the default learning rate of .1</p>
-            <h3>Question 3: Explain the overflow and underflow problems in softmax computation.</h3>
-            <p>For overflow - if o<sub>j</sub> is very large (like 1000) the exp(1000) -> &infin; <br>
-                Which would result in infinity or NAN, breaking the model <br>
-                <br>
-                For underflow - if o<sub>j</sub> is very negative (-1000) the exp(-1000) -> 0 <br>
-                Which can numerically vanish, causing instability in gradients or possibly leading to divison by zero <br>
-                <br>
-                Because the softmax is invariant to constant shifts, you can subtract the max which deosn't change the output. It shifts the largest input to 0, and all others become <= 0. This prevents exponenetal overflow and helps with gradient stabilty.<br>
-                <br>
-                This solution is not perfect. There is the possiblity of severe underflow, NAN from log(0), and rounding errors.</p>
-        </div>
-        <div>
-            <h2>Part 2</h2>
-            <h3>Question 1: Come up with an example that the gradients vanish for the sigmoid activation function.</h3>
-            <p>Using a simple neural network with one input neuron, one hidden neuron using sigmoid, and one output neuron.<br>
-                Input x = 10 <br>
-                Weight w = 5 <br>
-                Hidden activation h = &sigma;(wx) <br>
-                Output: just h <br>
-                <br>
-                Suppose the loss is: L = <math><mfrac><mrow><mi>1</mi></mrow><mrow><mi>2</mi></mrow></mfrac></math>(h - y)<sup>2</sup>
-                <br>
-                Let y = 0 <br>
-                <br>
-                Forward Pass<br>
-                z = wx = 5 &#183; 10 = 50 <br>
-                h = &sigma;(50) &approx; 1.0 <br>
-                L = <math><mfrac><mrow><mi>1</mi></mrow><mrow><mi>2</mi></mrow></mfrac></math>(1 - 0)<sup>2</sup> = <math><mfrac><mrow><mi>1</mi></mrow><mrow><mi>2</mi></mrow></mfrac></math> <br>
-                <br>
-                Backward Pass <br>
-                <math><mfrac><mrow><mi>dL</mi></mrow><mrow><mi>dw</mi></mrow></mfrac></math> = <math><mfrac><mrow><mi>dL</mi></mrow><mrow><mi>dh</mi></mrow></mfrac></math> &#183; <math><mfrac><mrow><mi>dh</mi></mrow><mrow><mi>dz</mi></mrow></mfrac></math> &#183; <math><mfrac><mrow><mi>dz</mi></mrow><mrow><mi>dw</mi></mrow></mfrac></math> <br>
-                <br>
-                <math><mfrac><mrow><mi>dL</mi></mrow><mrow><mi>dh</mi></mrow></mfrac></math> = h - y = 1 - 0 = 1 <br>
-                <math><mfrac><mrow><mi>dh</mi></mrow><mrow><mi>dz</mi></mrow></mfrac></math> = &sigma;(z)(1 - &sigma;(z)) &approx; 1 &#183; (1 - 1) = 0 <br>
-                <math><mfrac><mrow><mi>dz</mi></mrow><mrow><mi>dw</mi></mrow></mfrac></math> = x = 10 <br>
-                So: <br>
-                <math><mfrac><mrow><mi>dL</mi></mrow><mrow><mi>dw</mi></mrow></mfrac></math> =1 &#183; 0 &#183; 10 = 0 <br>
-                Causing the gradient to vanish
-            </p>
-            <h3>Question 2</h3>
-            <article class="results">
-                <figure>
-                    <img src="img/mlp.png" alt="graph" width="175" height="175"/>
-                    <figcaption>Multilayer Perceptron with 1 hidden layer </figcaption>
-                </figure>
-            </article>
-            <p>The training lose starts higher than the softmax implementation, but the val_lose and val_acc appear to be roughly similar.</p>
-            <h3>Question 3: What's the memory footprint for training and prediction in the model described in the above example?</h3>
-            <p>I honestly had no idea how to calculate this so I asked chatGTP using the parameters from the MLP implementation from the link to chapter 5.2 <br>
-                <br>
-                My prompt was: How to get the memory footprint for training and prediction in a MLP model with 1 hidden layer and 1 input layer with these values num_inputs=784, num_outputs=10, num_hiddens=256, lr=0.1 <br>
-                It gave me gave me the formulas and all but here are the Final totals: <br>
-                <br>
-                Inference Memory (no gradients or optimizer):<br>
-                Parameters: 795.4 KB    <br>
-                Activations: 33.25 KB   <br>
-                Input/output: 99.23 KB  <br>
-                Total:  927.88KB &approx; 0.91MB    <br>
-                <br>
-                Training Memory (includes everything): <br>
-                Parameters: 795.4 KB    <br>
-                Activations: 33.25 KB   <br>
-                Input/output: 99.23 KB  <br>
-                Gradients: 795.4 KB     <br>
-                Optimizer state: 1.55 MB    <br>
-                Total:  3.27 MB
-            </p>
-        </div>
-        <div>
-            <h2>Part 3: LeNet</h2>
-            <h3>Question 1:</h3>
-            <article class="results">
-                <figure>
-                    <img src="img/e5.png" alt="graph" width="175" height="175"/>
-                    <figcaption>5 epochs</figcaption>
-                </figure>
-                <figure>
-                    <img src="img/e10.png" alt="graph" width="175" height="175"/>
-                    <figcaption>10 epochs</figcaption>
-                </figure>
-                <figure>
-                    <img src="img/e20.png" alt="graph" width="175" height="175"/>
-                    <figcaption>20 epochs</figcaption>
-                </figure>
-            </article>
-            <p>Each took longer to run with more epochs, but the accuracy got better.</p>
-            <h3>Question 2: Modifying LeNet: Replace average pooling with max-pooling, replace the Sigmoid layer with ReLU. </h3>
-            <article class="results">
-                <figure>
-                    <img src="img/e5relu.png" alt="graph" width="175" height="175"/>
-                    <figcaption>5 epochs</figcaption>
-                </figure>
-                <figure>
-                    <img src="img/e10relu.png" alt="graph" width="175" height="175"/>
-                    <figcaption>10 epochs</figcaption>
-                </figure>
-                <figure>
-                    <img src="img/e20relu.png" alt="graph" width="175" height="175"/>
-                    <figcaption>20 epochs</figcaption>
-                </figure>
-            </article>
-            <p>Each took a little less time to run. The graphs look more like the ones from Part 1.</p>
-            <h3>Question 3</h3>
-            <p>I couldn't get this one done.</p>
+        <div class="wrap">
+            <div>
+                <h2>Part 1</h2>
+                <h3>Question 1: Visualize 10 images form the dataset</h3>
+                <img src="img/visual.png" alt="10 clothing images with labels" width="600" height="300"/>
+                <h3>Question 2: Hyperparameter analysis</h3>
+                <h4>2.1: Try to use different learning rates, plot how validation loss changes. </h4>
+                <article class="results">
+                    <figure>
+                        <img src="img/lr1.png" alt="graph" width="175" height="175"/>
+                        <figcaption>Learning rate of .1</figcaption>
+                    </figure>
+                    <figure>
+                        <img src="img/lr25.png" alt="graph" width="175" height="175"/>
+                        <figcaption>Learning rate of .25</figcaption>
+                    </figure>
+                    <figure>
+                        <img src="img/lr5.png" alt="graph" width="175" height="175"/>
+                        <figcaption>Learning rate of .5</figcaption>
+                    </figure>
+                    <figure>
+                        <img src="img/lr75.png" alt="graph" width="175" height="175"/>
+                        <figcaption>Learning rate of .75</figcaption>
+                    </figure>
+                </article>
+                <p>All of the above graphs are with a batch size of 256</p>
+                <h4>2.2: Try to use different batch sizes, how validation and training loss changes?</h4>
+                <article class="results">
+                    <figure>
+                        <img src="img/b50.png" alt="graph" width="175" height="175"/>
+                        <figcaption>batch size of 50</figcaption>
+                    </figure>
+                    <figure>
+                        <img src="img/b100.png" alt="graph" width="175" height="175"/>
+                        <figcaption>batch size of 100</figcaption>
+                    </figure>
+                    <figure>
+                        <img src="img/b150.png" alt="graph" width="175" height="175"/>
+                        <figcaption>batch size of 150</figcaption>
+                    </figure>
+                </article>
+                <p>Each of the above graphs used the default learning rate of .1</p>
+                <h3>Question 3: Explain the overflow and underflow problems in softmax computation.</h3>
+                <p>For overflow - if o<sub>j</sub> is very large (like 1000) the exp(1000) -> &infin; <br>
+                    Which would result in infinity or NAN, breaking the model <br>
+                    <br>
+                    For underflow - if o<sub>j</sub> is very negative (-1000) the exp(-1000) -> 0 <br>
+                    Which can numerically vanish, causing instability in gradients or possibly leading to divison by zero <br>
+                    <br>
+                    Because the softmax is invariant to constant shifts, you can subtract the max which deosn't change the output. It shifts the largest input to 0, and all others become <= 0. This prevents exponenetal overflow and helps with gradient stabilty.<br>
+                    <br>
+                    This solution is not perfect. There is the possiblity of severe underflow, NAN from log(0), and rounding errors.</p>
+            </div>
+            <div>
+                <h2>Part 2</h2>
+                <h3>Question 1: Come up with an example that the gradients vanish for the sigmoid activation function.</h3>
+                <p>Using a simple neural network with one input neuron, one hidden neuron using sigmoid, and one output neuron.<br>
+                    Input x = 10 <br>
+                    Weight w = 5 <br>
+                    Hidden activation h = &sigma;(wx) <br>
+                    Output: just h <br>
+                    <br>
+                    Suppose the loss is: L = <math><mfrac><mrow><mi>1</mi></mrow><mrow><mi>2</mi></mrow></mfrac></math>(h - y)<sup>2</sup>
+                    <br>
+                    Let y = 0 <br>
+                    <br>
+                    Forward Pass<br>
+                    z = wx = 5 &#183; 10 = 50 <br>
+                    h = &sigma;(50) &approx; 1.0 <br>
+                    L = <math><mfrac><mrow><mi>1</mi></mrow><mrow><mi>2</mi></mrow></mfrac></math>(1 - 0)<sup>2</sup> = <math><mfrac><mrow><mi>1</mi></mrow><mrow><mi>2</mi></mrow></mfrac></math> <br>
+                    <br>
+                    Backward Pass <br>
+                    <math><mfrac><mrow><mi>dL</mi></mrow><mrow><mi>dw</mi></mrow></mfrac></math> = <math><mfrac><mrow><mi>dL</mi></mrow><mrow><mi>dh</mi></mrow></mfrac></math> &#183; <math><mfrac><mrow><mi>dh</mi></mrow><mrow><mi>dz</mi></mrow></mfrac></math> &#183; <math><mfrac><mrow><mi>dz</mi></mrow><mrow><mi>dw</mi></mrow></mfrac></math> <br>
+                    <br>
+                    <math><mfrac><mrow><mi>dL</mi></mrow><mrow><mi>dh</mi></mrow></mfrac></math> = h - y = 1 - 0 = 1 <br>
+                    <math><mfrac><mrow><mi>dh</mi></mrow><mrow><mi>dz</mi></mrow></mfrac></math> = &sigma;(z)(1 - &sigma;(z)) &approx; 1 &#183; (1 - 1) = 0 <br>
+                    <math><mfrac><mrow><mi>dz</mi></mrow><mrow><mi>dw</mi></mrow></mfrac></math> = x = 10 <br>
+                    So: <br>
+                    <math><mfrac><mrow><mi>dL</mi></mrow><mrow><mi>dw</mi></mrow></mfrac></math> =1 &#183; 0 &#183; 10 = 0 <br>
+                    Causing the gradient to vanish
+                </p>
+                <h3>Question 2</h3>
+                <article class="results">
+                    <figure>
+                        <img src="img/mlp.png" alt="graph" width="175" height="175"/>
+                        <figcaption>Multilayer Perceptron with 1 hidden layer </figcaption>
+                    </figure>
+                </article>
+                <p>The training lose starts higher than the softmax implementation, but the val_lose and val_acc appear to be roughly similar.</p>
+                <h3>Question 3: What's the memory footprint for training and prediction in the model described in the above example?</h3>
+                <p>I honestly had no idea how to calculate this so I asked chatGTP using the parameters from the MLP implementation from the link to chapter 5.2 <br>
+                    <br>
+                    My prompt was: How to get the memory footprint for training and prediction in a MLP model with 1 hidden layer and 1 input layer with these values num_inputs=784, num_outputs=10, num_hiddens=256, lr=0.1 <br>
+                    It gave me gave me the formulas and all but here are the Final totals: <br>
+                    <br>
+                    Inference Memory (no gradients or optimizer):<br>
+                    Parameters: 795.4 KB    <br>
+                    Activations: 33.25 KB   <br>
+                    Input/output: 99.23 KB  <br>
+                    Total:  927.88KB &approx; 0.91MB    <br>
+                    <br>
+                    Training Memory (includes everything): <br>
+                    Parameters: 795.4 KB    <br>
+                    Activations: 33.25 KB   <br>
+                    Input/output: 99.23 KB  <br>
+                    Gradients: 795.4 KB     <br>
+                    Optimizer state: 1.55 MB    <br>
+                    Total:  3.27 MB
+                </p>
+            </div>
+            <div>
+                <h2>Part 3: LeNet</h2>
+                <h3>Question 1:</h3>
+                <article class="results">
+                    <figure>
+                        <img src="img/e5.png" alt="graph" width="175" height="175"/>
+                        <figcaption>5 epochs</figcaption>
+                    </figure>
+                    <figure>
+                        <img src="img/e10.png" alt="graph" width="175" height="175"/>
+                        <figcaption>10 epochs</figcaption>
+                    </figure>
+                    <figure>
+                        <img src="img/e20.png" alt="graph" width="175" height="175"/>
+                        <figcaption>20 epochs</figcaption>
+                    </figure>
+                </article>
+                <p>Each took longer to run with more epochs, but the accuracy got better.</p>
+                <h3>Question 2: Modifying LeNet: Replace average pooling with max-pooling, replace the Sigmoid layer with ReLU. </h3>
+                <article class="results">
+                    <figure>
+                        <img src="img/e5relu.png" alt="graph" width="175" height="175"/>
+                        <figcaption>5 epochs</figcaption>
+                    </figure>
+                    <figure>
+                        <img src="img/e10relu.png" alt="graph" width="175" height="175"/>
+                        <figcaption>10 epochs</figcaption>
+                    </figure>
+                    <figure>
+                        <img src="img/e20relu.png" alt="graph" width="175" height="175"/>
+                        <figcaption>20 epochs</figcaption>
+                    </figure>
+                </article>
+                <p>Each took a little less time to run. The graphs look more like the ones from Part 1.</p>
+                <h3>Question 3</h3>
+                <p>I couldn't get this one done.</p>
+            </div>
         </div>
     </main>
 </body>
