@@ -1,1 +1,165 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta author="Joey Carlisle">
+    <title>Engr 691: Project 3</title>
+    <link rel="icon" href="img/eye.png">
+    <link rel="stylesheet" type="text/css" href="../../styles.css" />
+</head>
+<body class="wrap">
+    <header>
+        <a class="inline" href="../index.html">&lt- Back Home</a>
+        <br>
+        <nav>
+            <h1>Engr 691: Project 3 - Attention and Transformers</h1>
+        </nav>
+        <h2 class="tab">Objective:</h2>
+        <h3 class="tab">
+            In this project, you will explore core components of modern attention-based architectures. You will implement and analyze:
+        </h3>
+        <ul>
+            <li class="tab">A basic attention mechanism</li>
+            <li class="tab">Multi-head attention </li>
+            <li class="tab">The Transformer architecture</li>
+        </ul>
+        <h3 class="tab">
+            Your goals are to understand how attention works, how it differs from RNNs, and how model performance is influenced by architectural and hyperparameter choices.
+        </h3>
+    </header>
+    <main class="report">
+        <div class="tab">
+            <h2>Part 1: Basic Attention Mechanism</h2>
+            <h3>Implement the attention mechanism on top of the encoder-decoder model. Train on the [English - French dataset] from Project 2. </h3>
+            <h4>Answer the following questions by providing discussion and plots (screenshots) of your training process, or visualizing your results. </h4>
+            <h3>Task 1: Hyperparameter Tuning. Use the same test data provided in Part 3 of Project 2 to compute the BLEU score. </h3>
+            <ul>
+                <li>Tune the attention model to improve translation results (e.g., BLEU score).</li>
+                <li>Provide training and validation loss plots of your top-performing configurations (&#8804;3).</li>
+                <li>Discuss your findings and comment on the effects of different hyperparameter settings.</li>
+            </ul>
+            <h3>Task 2: Attention Visualization. </h3>
+            <ul>
+                <li>Pick a few translated sentence pairs and visualize the attention weights (e.g., heatmaps).</li>
+                <li>Discuss what the model is "focusing on" in each case. </li>
+            </ul>
+            <div class="images">
+                <article>
+                    <br>
+                    <!-- <div class="center">
+                        <img src="img/blur_k5_s1.png" alt="Lighthouse" width="600" height="350"/>
+                    </div>
+                    <div class="center">
+                        <p>For the Gaussian filtering I used a kernel size of 5 and a sigma of 1. I found these to be the best denoised results for each timestamp.</p>
+                    </div> -->
+                    <br>
+                </article>
+            </div>
+        </div>
+        <br>
+        <div class="tab">
+            <h2>Part 2: Multi-head Attention</h2>
+            <h3>Extend the attention mechanism by implementing multi-head attention. Train your model on the English - French dataset.</h3>
+            <h4>Answer the following questions by providing discussion and plots (screenshots) of your training process, or visualizing your results.  </h4>
+            <h3>Task 1: Implement Multi-Head Attention</h3>
+            <ul>
+                <li>Replace the single-head attention in your model from Part 1 with your new multi-head attention.</li>
+                <li>Report the training and validation loss curves. Compare the BLEU scores with Part 1 and discuss any changes in performance.</li>
+                <li>Discuss: Does multi-head attention improve translation quality? How does the number of heads (e.g., 1, 2, 4, 8) affect model performance?</li>
+            </ul>
+            <div class="images">
+                <article>
+                    <!-- <br>
+                    <div class="center">
+                        <img src="img/1_5.png" alt="5 generated images" width="600" height="350"/>
+                    </div>
+                    <div class="center">
+                        <p>Top-left - it looks like lily pads in a pond maybe<br>
+                        Top- middle - a childs doll <br>
+                        Top-right - a childs valcano assignment<br>
+                        Bottom-left - a person in the woods on a winter day<br>
+                        Bottom-middle - a skunk curled up maybe</p>
+                    </div> -->
+                </article>
+            </div>
+            <h3>Task 2: Analysis of Attention Heads</h3>
+            <ul>
+                <li>Visualize the attention weights for each head on a few translated sentence pairs.</li>
+                <li>Discuss: Do different heads attend to different parts of the input? What kind of diversity or redundancy do you observe across heads?</li>
+            </ul>
+            <div class="images">
+                <article>
+                    <br>
+                    <!-- <div class="center">
+                        <img src="img/1_6.png" alt="5 generated images" width="600" height="350"/>
+                    </div>
+                    <div class="center">
+                        <p>These came out a lot better than other ones.<br>
+                        Top-left - a girl<br>
+                        Top- middle - a pier and sunset<br>
+                        Top-right - a guy<br>
+                        Bottom-left - a laje and mountains during sunset<br>
+                        Bottom-middle - a girl</p>
+                    </div> -->
+                </article>
+            </div>
+        <br>
+        <div class="tab">
+            <h2>Part 3: Transformer Architecture (Graduate Students)</h2>
+            <h3>Implement the full encoder-decoder transformer model. Train your model on the English - French dataset from Project 2.</h3>
+            <h3>Task 1: Implement Transformer Model</h3>
+            <ul>
+                <li>Train your Transformer model and evaluate the BLEU score and training/validation loss.</li>
+                <li>Compare performance (BLEU/loss) between:</li>
+                <ul>
+                    <li>Your Transformer model</li>
+                    <li>Seq2Seq with Bahdanau Attention (from Part 1)</li>
+                    <li>Seq2Seq with Multi-Head Attention (from Part 2)</li>
+                </ul>
+                <li>Discuss: Which model performs best? Under what conditions does Transformer outperform the others?</li>
+            </ul>
+            <div class="images">
+                <article>
+                    <br>
+                    <!-- <div class="center">
+                        <img src="img/part3OldMan.png" alt="An old man, flipped to a campfire" width="600" height="300"/>
+                    </div>
+                    <br>
+                    <div class="center">
+                        <img class="infinite-spin" src="img/manSpin.png" alt="old man fliping to a campfire" width="300" height="300"/>
+                    </div>
+                    <br>
+                    <div class="center">
+                        <img src="img/part3Barista.png" alt="Barista flipped to a dog" width="600" height="300"/>
+                    </div>
+                    <br>
+                    <div class="center">
+                        <img class="infinite-spin" src="img/baristaSpin.png" alt="barista fliping to a dog" width="300" height="300"/>
+                    </div>
+                    <br>
+                    <div class="center">
+                        <img src="img/part3Skull.png" alt="waterfall flipped to a skull" width="600" height="300"/>
+                    </div>
+                    <br>
+                    <div class="center">
+                        <img class="infinite-spin" src="img/skullSpin.png" alt="waterfall fliping to a skull" width="300" height="300"/>
+                    </div> -->
+                    <br>
+                </article>
+            </div> 
+            <h3>Task 2: Ablation Study</h3>
+            <ul>
+                <li>TDisable either positional encoding or self-attention in the Transformer architecture.</li>
+                <li>Re-train and observe the effect on BLEU score and training behavior.</li>
+                <li>Report your findings:</li>
+                <ul>
+                    <li>How does disabling each component affect translation quality?</li>
+                    <li>Do you observe significant drops in BLEU score or training instability?</li>
+                </ul>
+            </ul> 
+        </div>
+    </main>
+</body>
+</html>
