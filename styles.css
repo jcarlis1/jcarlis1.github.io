@@ -67,6 +67,7 @@ header p {
     align-items: stretch; 
     gap: 2rem; 
     margin: 2rem auto;
+    flex-direction: row;
 }
 
 a.inline{
