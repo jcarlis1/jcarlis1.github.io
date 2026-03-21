@@ -40,6 +40,37 @@
                 <li>Provide training and validation loss plots of your top-performing configurations (&#8804;3).</li>
                 <li>Discuss your findings and comment on the effects of different hyperparameter settings.</li>
             </ul>
+            <div class="images">
+                <article>
+                    <br>
+                    <div class="middle">
+                        <figure>
+                            <img src="img/base_train.png" alt="validation loss plot" width="150" height="100"/>
+                            <figcaption>base hypers:<br>epochs at 30,<br>embed_size 256,<br>num_hiddens 256,<br>num_layers 2,<br>dropout 0.2,<br>lr 0.005,<br>gradient_clip 1</figcaption>
+                        </figure>
+                        <figure>
+                            <img src="img/first_train.png" alt="validation loss plot" width="150" height="100"/>
+                            <figcaption>first adjust:<br>epochs at 30,<br>embed_size 128,<br>num_hiddens 256,<br>num_layers 2,<br>dropout 0.2,<br>lr 0.005,<br>gradient_clip 0.5</figcaption>
+                        </figure>
+                        <figure>
+                            <img src="img/ninth_train.png" alt="validation loss plot" width="150" height="100"/>
+                            <figcaption>second adjust:<br>epochs at 100,<br>embed_size 256,<br>num_hiddens 512,<br>num_layers 3,<br>dropout 0.3,<br>lr 0.01,<br>gradient_clip 0.2</figcaption>
+                        </figure>
+                    </div>
+                    <div>
+                        <p>With the small size of the dataset there appears to be overfitting as the validation loss increases around the tenth epoch. <br>
+                            Using the hyperparameters label base, three of the blue scores were 1.000 and the predictions were correct (English phrases: go ., I lost .,  I’m home). 
+                            One other phrase received a blue score of 0.492 (English phrase: he’s calm .). The translation showed the first word ”he’s” as unknown but was able to correctly translate the second word ”calm”. 
+                            All the rest of the phrases received a 0.000 blue score. Every one of them had an unknown value, however the odd part was that the translations didn’t show the correct number of unknowns. 
+                            If an English phrase contained 4 words, the translation prediction would contain at least one correctly predicted French word, but at least one fewer unknown prediction than was in the English phrase.<br>
+                            For the first adjusted hyperparameters changing the embed_size and gradient_clip, the same results and unknown prediction issue were seen as in the base hyperparameters except there was a slight improvement of the blue score on the ”he’s calm .” phrase to 0.658.<br>
+                            For the second adjustment, I changed to more aggressive hyperparameters. The blue scores on the phrases that were a perfect 1.000 were worse except for the phrase ”I’m home .” (1.000 again) and the ”he’s calm .” phrase (0.658). 
+                            One phrase that generally received a 0.000 blue score (he went to school .) did have an improvement in score 0.399. There were however fewer unknown predictions, but again the prediction didn’t contain the correct number of words in the prediction.
+                        </p>
+                    </div>
+                    <br>
+                </article>
+            </div>
             <h3>Task 2: Attention Visualization. </h3>
             <ul>
                 <li>Pick a few translated sentence pairs and visualize the attention weights (e.g., heatmaps).</li>
@@ -48,12 +79,28 @@
             <div class="images">
                 <article>
                     <br>
-                    <!-- <div class="center">
-                        <img src="img/blur_k5_s1.png" alt="Lighthouse" width="600" height="350"/>
+                    <div class="middle">
+                        <figure>
+                            <img src="img/1_index.png" alt="heatmap" width="150" height="200"/>
+                            <figcaption>English: i lost . <br>French: j'ai perdu .</figcaption>
+                        </figure>
+                        <figure>
+                            <img src="img/2_index.png" alt="heatmap" width="150" height="200"/>
+                            <figcaption>English: he's calm . <br>French: il est calme .</figcaption>
+                        </figure>
+                        <figure>
+                            <img src="img/18_index.png" alt="heatmap" width="150" height="200"/>
+                            <figcaption>English: he went to school . <br>French: il est allé à l'école .</figcaption>
+                        </figure>
                     </div>
-                    <div class="center">
-                        <p>For the Gaussian filtering I used a kernel size of 5 and a sigma of 1. I found these to be the best denoised results for each timestamp.</p>
-                    </div> -->
+                    <div>
+                        <p>For the first heatmap, the model focused heavily on the first word “i” at the start, but it then looks at each subsequent word with a high focus. This was one of the phrases that consistently had a perfect blue score.<br>
+                            For the second (middle) heatmap, a lot of focus was placed on the first word “he’s” from the middle onward in the prediction. Whereas the word “calm” had more focus at the beginning with some toward the middle, but still not as much as “he’s”. 
+                            The was visualized often in the blue score prediction as the word “he’s” was the more often predicted word.<br>
+                            For the third heatmap, the model completely focused on the first word “he”. The blue score for this phrase was consistently 0.000, except for the one instance with the aggressive hyperparameter use that produced a blue score of 0.399. 
+                            This low score can be attributed to the model focusing so heavily on the first word.
+                        </p>
+                    </div>
                     <br>
                 </article>
             </div>
@@ -71,17 +118,45 @@
             </ul>
             <div class="images">
                 <article>
-                    <!-- <br>
-                    <div class="center">
-                        <img src="img/1_5.png" alt="5 generated images" width="600" height="350"/>
+                    <br>
+                    <div class="middle">
+                        <figure>
+                            <img src="img/base_train_mh.png" alt="validation loss plot" width="150" height="100"/>
+                            <figcaption>base hypers:<br>epochs at 30<br>num_heads 8,<br>embed_size 256,<br>num_hiddens 256,<br>num_layers 2,<br>dropout 0.2,<br>lr 0.005,<br>gradient_clip 1</figcaption>
+                        </figure>
+                        <figure>
+                            <img src="img/first_train_mh.png" alt="validation loss plot" width="150" height="100"/>
+                            <figcaption>second adjust:<br>epochs at 100<br>num_heads 8,<br>embed_size 256,<br>num_hiddens 512,<br>num_layers 3,<br>dropout 0.3,<br>lr 0.01,<br>gradient_clip 0.2</figcaption>
+                        </figure>
+                        <figure>
+                            <img src="img/second_train_mh.png" alt="validation loss plot" width="150" height="100"/>
+                            <figcaption>first adjust:<br>epochs at 30<br>num_heads 8,<br>embed_size 128,<br>num_hiddens 256,<br>num_layers 2,<br>dropout 0.2,<br>lr 0.005,<br>gradient_clip 0.5</figcaption>
+                        </figure>
                     </div>
                     <div class="center">
-                        <p>Top-left - it looks like lily pads in a pond maybe<br>
-                        Top- middle - a childs doll <br>
-                        Top-right - a childs valcano assignment<br>
-                        Bottom-left - a person in the woods on a winter day<br>
-                        Bottom-middle - a skunk curled up maybe</p>
-                    </div> -->
+                        <p>The multi-head blue scores are on the second scores, </p>
+                    </div>
+                    <div class="center">
+                        <p>Scores from base hyperparameters:</p>
+                        <img src="img/base_blue.png" alt="blue score" width="500" height="400"/>
+                        <img src="img/base_blue_mh.png" alt="blue score" width="500" height="400"/>
+                    </div>
+                    <div class="center">
+                        <p>Scores from first adjustment</p>
+                        <img src="img/first_blue.png" alt="blue score" width="500" height="400"/>
+                        <img src="img/first_blue_mh.png" alt="blue score" width="500" height="400"/>
+                    </div>
+                    <div class="center">
+                        <p>Scores from second adjustment</p>
+                        <img src="img/second_blue.png" alt="blue score" width="500" height="400"/>
+                        <img src="img/second_blue_mh.png" alt="blue score" width="500" height="400"/>
+                    </div>
+                    <div>
+                        <p>Yes and no, several scores stay the same, a few improved slightly, while others got worse, but more French words were correctly predicted.<br>
+                            The model performance by the blue scoring decreased when the number of heads decreased. <br> 
+                            The multi-head model flipped what I witnessed from Part 1. With the muti-head model, there were a larger number of unknown predictions than the number of words in the English phrase.</p>
+                    </div>
+                    <br>
                 </article>
             </div>
             <h3>Task 2: Analysis of Attention Heads</h3>
@@ -92,17 +167,26 @@
             <div class="images">
                 <article>
                     <br>
-                    <!-- <div class="center">
-                        <img src="img/1_6.png" alt="5 generated images" width="600" height="350"/>
-                    </div>
                     <div class="center">
-                        <p>These came out a lot better than other ones.<br>
-                        Top-left - a girl<br>
-                        Top- middle - a pier and sunset<br>
-                        Top-right - a guy<br>
-                        Bottom-left - a laje and mountains during sunset<br>
-                        Bottom-middle - a girl</p>
-                    </div> -->
+                        <figure>
+                            <img src="img/1_index_mh.png" alt="heatmap" width="600" height="300"/>
+                            <figcaption>English: i lost . <br>French: j'ai perdu .</figcaption>
+                        </figure>
+                        <figure>
+                            <img src="img/2_index_mh.png" alt="heatmap" width="600" height="300"/>
+                            <figcaption>English: he's calm . <br>French: il est calme .</figcaption>
+                        </figure>
+                        <figure>
+                            <img src="img/3_index_mh.png" alt="heatmap" width="600" height="300"/>
+                            <figcaption>English: he went to school . <br>French: il est allé à l'école .</figcaption>
+                        </figure>
+                    </div>
+                    <div>
+                        <p>Yes, the heatmaps for the multi-head model do show that the heads did attend to different parts of the input.<br> 
+                            Each heatmap shows that each head mainly focused on different parts of the input, however an interesting part is that the heads in each heatmap focused on relatively the same part of the input across different trainings and hyperparameters. 
+                            Head four in each heatmap is identical, while several others not being identical are very close.</p>
+                    </div>
+                    <br>
                 </article>
             </div>
         </div>
@@ -124,42 +208,75 @@
             <div class="images">
                 <article>
                     <br>
-                    <!-- <div class="center">
-                        <img src="img/part3OldMan.png" alt="An old man, flipped to a campfire" width="600" height="300"/>
-                    </div>
-                    <br>
                     <div class="center">
-                        <img class="infinite-spin" src="img/manSpin.png" alt="old man fliping to a campfire" width="300" height="300"/>
+                        <p>Using the base hyperparameters (num_hiddens 256, num_blks 2, dropout 0.2,  ffn_num_hiddens 64, num_heads 4, 
+                            lr 0.001, epochs 30, gradient_clip 1) the blue scores and results were slightly worse than both Bahdanau Attention 
+                            and Multi-Head Attention base scores with basically the same hyperparameters.</p>
+                        <img src="img/base_blue_form.png" alt="blue score" width="500" height="400"/>
+                        <img src="img/base_train_form.png" alt="validation loss plot" width="400" height="250">
                     </div>
-                    <br>
                     <div class="center">
-                        <img src="img/part3Barista.png" alt="Barista flipped to a dog" width="600" height="300"/>
+                        <p>Using the hyperparameters that matched the first training from the other two parts (epochs 100 , num_hiddens 256, num_blks 2,
+                             dropout 0.3, ffn_num_hiddens 512, num_heads 8, lr 0.01, gradient_clip 0.2) the blue scores were much worse than both 
+                             Bahdanau Attention and Multi-Head Attention and instead of showing unknown predictions it has pad. 
+                            I attribute this to the dropout rate being 0.3 making it hard for the model to learn, but I used the same value in the next training and it didn't have the same effect.</p>
+                        <img src="img/first_blue_form.png" alt="blue score" width="600" height="400"/>
+                        <img src="img/first_train_form.png" alt="validation loss plot" width="400" height="250">
                     </div>
-                    <br>
                     <div class="center">
-                        <img class="infinite-spin" src="img/baristaSpin.png" alt="barista fliping to a dog" width="300" height="300"/>
+                        <p>Using the hyperparameters that matched the second training from the other two parts (epochs 30, num_hiddens 256, num_blks 2, 
+                            dropout 0.3, ffn_num_hiddens 1024, num_heads 8, lr 0.001, gradient_clip 0.5) the blue scores were slightly worse than both 
+                            Bahdanau Attention and Multi-Head Attention and the number of unknowns was like the Bahdanau Attention model.</p>
+                        <img src="img/second_blue_form.png" alt="blue score" width="600" height="400"/>
+                        <img src="img/second_train_form.png" alt="validation loss plot" width="400" height="250">
                     </div>
-                    <br>
                     <div class="center">
-                        <img src="img/part3Skull.png" alt="waterfall flipped to a skull" width="600" height="300"/>
+                        <p>Using the hyperparameters (epochs 200, num_hiddens 256, num_blks 2, dropout 0.2, ffn_num_hiddens 512, num_heads 4, lr 0.0005, 
+                            gradient_clip 1) the blue scores were the same as both Bahdanau Attention and Multi-Head Attention and the number of unknowns 
+                            was like the Bahdanau Attention model, but with 200 epochs the time to train was much longer to obtain the same results. 
+                            Training time wise the other two were much better.
+                        </p>
+                        <img src="img/third_blue_form.png" alt="blue score" width="600" height="400"/>
+                        <img src="img/third_train_form.png" alt="validation loss plot" width="400" height="250">
                     </div>
-                    <br>
-                    <div class="center">
-                        <img class="infinite-spin" src="img/skullSpin.png" alt="waterfall fliping to a skull" width="300" height="300"/>
-                    </div> -->
                     <br>
                 </article>
             </div> 
             <h3>Task 2: Ablation Study</h3>
             <ul>
-                <li>TDisable either positional encoding or self-attention in the Transformer architecture.</li>
+                <li>Disable either positional encoding or self-attention in the Transformer architecture.</li>
                 <li>Re-train and observe the effect on BLEU score and training behavior.</li>
                 <li>Report your findings:</li>
                 <ul>
                     <li>How does disabling each component affect translation quality?</li>
                     <li>Do you observe significant drops in BLEU score or training instability?</li>
                 </ul>
-            </ul> 
+            </ul>
+            <div class="images">
+                <article>
+                    <br>
+                    <div class="center">
+                        <p>When disabling positional encoding and self-attention, I used the hyperparameters (epochs 30, num_hiddens 256, num_blks 2,
+                             dropout 0.2, ffn_num_hiddens 1024, num_heads 8, lr 0.001, gradient_clip 1) 
+                        </p>
+                    </div>
+                    <div class="center">
+                        <p>Disabling positional encoding loss and blue scores</p>
+                        <img src="img/dpe_blue.png" alt="blue score" width="600" height="400"/>
+                        <img src="img/dpe_train.png" alt="validation loss plot" width="400" height="250">
+                    </div>
+                    <div class="center">
+                        <p>Disabling self-attention loss and blue scores</p>
+                        <img src="img/dsa_blue.png" alt="blue score" width="600" height="400"/>
+                        <img src="img/dsa_train.png" alt="validation loss plot" width="400" height="250">
+                    </div>
+                    <p>The blue scores when disabling either positional encoding or self-attention where the same as the ones from last training 
+                        from task 1. It only took 30 epoch instead of 200. It is odd that both scores were identical, but some of the predictions 
+                        were different. The scores were better than the other 3 trainings from task 1. The validation loss’s look similar to the loss’s from Part 1. 
+                        They didn’t have the large spike at the early epochs like the other trainings from task 1. It look smooth.</p>
+                    <br>
+                </article>
+            </div> 
         </div>
     </main>
 </body>
