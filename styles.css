@@ -152,6 +152,13 @@ figcaption {
     flex-direction: column;
 }
 
+.middle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+}
+
 @keyframes rotate-loop {
   0%, 15% {
     transform: rotate(0deg);
@@ -168,5 +175,3 @@ figcaption {
   /* Run the animation 'rotate-loop' over 4 seconds, forever */
   animation: rotate-loop 4s infinite ease-in-out;
 }
-
-
