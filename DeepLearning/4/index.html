@@ -322,6 +322,32 @@
                         What I did notice was how long WGAN takes compared to GAN. The worst part of WGAN is the Gradient Penalty, which requires calculating gradients of gradients and is computationally expensive. 
                         In a standard GAN, the Discriminator is updated  once and the Generator once. In a WGAN, the Critic was updated 5 times for every 1 Generator update. 
                         To have sped the training up, I probably should have decreased the critic to 3 and increased the batch size to 256.
+
+                        Ouput from the training:
+                        
+                        Epoch [0/50] Batch 0/318 Loss D: -9.1736, G: 6.5877
+                        Epoch [0/50] Batch 10/318 Loss D: -68.3063, G: 39.6808
+                        Epoch [0/50] Batch 20/318 Loss D: -61.8464, G: 33.6595
+                        Epoch [0/50] Batch 30/318 Loss D: -76.2332, G: 63.2402
+                        Epoch [0/50] Batch 40/318 Loss D: -77.8504, G: 50.0744
+                        Epoch [0/50] Batch 50/318 Loss D: -83.7173, G: 49.4609
+                        Epoch [0/50] Batch 60/318 Loss D: -82.2405, G: 83.7682
+                        Epoch [0/50] Batch 70/318 Loss D: -86.4321, G: 73.8896
+                        Epoch [0/50] Batch 80/318 Loss D: -84.8742, G: 62.2136
+                        Epoch [0/50] Batch 90/318 Loss D: -84.1168, G: 83.9682
+                        Epoch [0/50] Batch 100/318 Loss D: -82.4594, G: 86.4480
+                        Epoch [0/50] Batch 110/318 Loss D: -85.5438, G: 82.0741
+                        Epoch [0/50] Batch 120/318 Loss D: -87.9282, G: 75.4399
+                        Epoch [0/50] Batch 130/318 Loss D: -76.9313, G: 88.0073
+                        Epoch [0/50] Batch 140/318 Loss D: -72.5627, G: 82.9939
+                        Epoch [0/50] Batch 150/318 Loss D: -70.1228, G: 89.8103
+                        Epoch [0/50] Batch 160/318 Loss D: -72.4500, G: 66.1094
+                        Epoch [0/50] Batch 170/318 Loss D: -35.1270, G: 64.6811
+                        Epoch [0/50] Batch 180/318 Loss D: -33.4152, G: 48.9243
+                        Epoch [0/50] Batch 190/318 Loss D: -33.5283, G: 68.2569
+                        Epoch [0/50] Batch 200/318 Loss D: -24.5186, G: 66.8122
+                        Epoch [0/50] Batch 210/318 Loss D: -24.2526, G: 58.6265
+
                     </p>
                     <br>
                 </article>
