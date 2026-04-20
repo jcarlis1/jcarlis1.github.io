@@ -319,6 +319,9 @@
                     <br>
                     <p>The training took too long with the Pokemon dataset. I was using Google Colab with the 5ve1 TPU and still 1 epoch would take over an hour and a half to train. I tried to let it run 
                         overnight but it stopped during the first epoch without finishing (it probably timed out). I had 50 epochs, batch size of 128, with a learning rate of 1e-4. Unfortunately, I couldn't complete this task.
+                        What I did notice was how long WGAN takes compared to GAN. The worst part of WGAN is the Gradient Penalty, which requires calculating gradients of gradients and is computationally expensive. 
+                        In a standard GAN, the Discriminator is updated  once and the Generator once. In a WGAN, the Critic was updated 5 times for every 1 Generator update. 
+                        To have sped the training up, I probably should have decreased the critic to 3 and increased the batch size to 256.
                     </p>
                     <br>
                 </article>
