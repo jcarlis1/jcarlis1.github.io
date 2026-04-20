@@ -1,1 +1,331 @@
 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta author="Joey Carlisle">
+    <title>Engr 691: Project 4</title>
+    <link rel="icon" href="img/eye.png">
+    <link rel="stylesheet" type="text/css" href="../../styles.css" />
+</head>
+<body class="wrap">
+    <header>
+        <a class="inline" href="../index.html">&lt- Back Home</a>
+        <br>
+        <nav>
+            <h1>Engr 691: Project 4 - Generative Models: VAE and GANs</h1>
+        </nav>
+        <h2 class="tab">Objective:</h2>
+        <h3 class="tab">
+            In this project, you will implement and analyze three types of generative models discussed in class.
+        </h3>
+        <ul>
+            <li class="tab">Variational Autoencoder (VAE)</li>
+            <li class="tab">Generative Adversarial Network (GAN)</li>
+            <li class="tab">Wasserstein GAN (WGAN, for graduate students only)</li>
+        </ul>
+        <h3 class="tab">
+            Your goal is to understand how each model works, how they are trained, and how the generated outputs 
+            vary across different methods. You will explore implementation challenges, hyperparameter tuning, and 
+            visualize the outputs.
+        </h3>
+    </header>
+    <main class="report">
+        <div class="tab">
+            <h2>Part 1: Variational Autoencoder (VAE)</h2>
+            <h3>Implement autoencoder and VAE. MNIST dataset is used for experiment. </h3>
+            <h4>Answer the following questions by providing discussion and plots (screenshots) of your training process, or visualizing your results. </h4>
+            <h3>Task 1: Implement and analyze a basic autoencoder. </h3>
+            <ul>
+                <li>Implement a basic autoencoder using a simple fully connected network, train it on MNIST. Use different latent dimension (i.e., number of hidden units) sizes (e.g., 2, 8, and 32). </li>
+                <li>Visualize reconstruction results from each version of the autoencoder (e.g., 2, 8, 32 number of hidden units), how does increasing the latent dimensionality affect reconstruction? </li>
+            </ul>
+            <div class="images">
+                <article>
+                    <br>
+                    <div class="center">
+                        <figure>
+                            <img src="img/vis_2_dims.png" alt="autoencoder visualization" width="575" height="200"/>
+                            <figcaption>number of hidden units - 2, original on top - recunstructed on bottom</figcaption>
+                        </figure>
+                    </div>
+                    <br>
+                    <div class="center">
+                        <figure>
+                            <img src="img/vis_8_dims.png" alt="autoencoder visualization" width="575" height="200"/>
+                            <figcaption>number of hidden units - 8, original on top - recunstructed on bottom</figcaption>
+                        </figure>
+                    </div>
+                    <br>
+                    <div class="center">
+                        <figure>
+                            <img src="img/vis_32_dims.png" alt="autoencoder visualization" width="575" height="200"/>
+                            <figcaption>number of hidden units - 32, original on top - recunstructed on bottom</figcaption>
+                        </figure>
+                        <div>
+                            <p>As seen in the images, as the latent space dimensions increase,  the “bottleneck” gets wider, 
+                                and the generated numbers become crisper/sharper. If you compare the 2's, 5's, and 8's reconstruction 
+                                across each dimension, you can clearly see the improvement.</p>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            <ul>
+                <li>Sampling from the learned latent space of the autoencoder. For each version (e.g., 8 and 32), sample random vectors and decode them using the trained decoder. Visualize the sampled outputs. 
+                    Compare how meaningful the generated digits are at different latent dimensionalities and provide a discussion. </li>
+            </ul>
+            <div class="images">
+                <article>
+                    <div class="center gap">
+                        <img src="img/sampling_2_dims.png" alt="Latent space sampling" width="575" height="150"/>
+                        <img src="img/sampling_8_dims.png" alt="Latent space sampling" width="575" height="150"/>
+                        <img src="img/sampling_32_dims.png" alt="Latent space sampling" width="575" height="150"/>
+                        <div>
+                            <p>The visualization demonstrates that as the latent dimensionality increases, the model's generative detail improves. At dimension 2, the decoder produces under-determined 'blobs'
+                                 that represent a mean-average of the dataset. At dimension 8, the decoder still produces “blobs” but with a couple of recognizable digits. By dimension 32, the increased capacity 
+                                 allows the model to capture fine-grained structural details, leading to sharper stroke definitions and somewhat recognizable digit representations.</p>
+                        </div>
+                    </div>
+                    <br>
+                </article>
+            </div>
+            <h3>Task 2: Implement and analyze VAE. </h3>
+            <ul>
+                <li>Implement a VAE, train it on MNIST. A typical implementation includes encoder, decoder, reparameterization, forward, and loss function. </li>
+                <ul>
+                    <li>Loss function: a binary cross-entropy loss between the reconstructed output and the input data + a KL divergence between the learned latent variable distribution and a standard Gaussian distribution. </li>
+                </ul>
+                <li>Sampling from the learned latent space of the VAE. Visualize the sampled outputs. Compare the generated digits using the basic autoencoder and the VAE, provide a discussion.  </li>
+            </ul>
+            <div class="images">
+                <article>
+                    <br>
+                    <div class="center">
+                        <p>Latent Space Sampling, Autoencoder above VAE</p>
+                    </div>
+                    <div class="center">
+                        <img src="img/sampling_2_dims.png" alt="autoencoder visualization" width="575" height="150"/>
+                        <img src="img/vae_sampling_2_dim.png" alt="VAE visualization" width="575" height="150"/>
+                        <div>
+                            <p>With the small size of the dataset there appears to be overfitting as the validation loss increases around the ten</p>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="center">
+                        <img src="img/sampling_8_dims.png" alt="autoencoder visualization" width="575" height="150"/>
+                        <img src="img/vae_sampling_8_dim.png" alt="VAE visualization" width="575" height="150"/>
+                        <div>
+                            <p>With the small size of the dataset there appears to be overfitting as the validation loss increases around the ten</p>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="center">
+                        <img src="img/sampling_32_dims.png" alt="autoencoder visualization" width="575" height="150"/>
+                        <img src="img/vae_sampling_32_dim.png" alt="VAE visualization" width="575" height="150"/>
+                        <div>
+                            <p>With the small size of the dataset there appears to be overfitting as the validation loss increases around the ten</p>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            <ul>
+                <li>Visualize the VAE latent space using mean and variance values [-1.0, 1.0] and [-5.0, 5.0]. Discuss the latent space visualization, what do you find? </li>
+                <ul>
+                    <li>Hint: You can create a 2D grid over the latent space and decode each point to visualize how the VAE organizes digits spatially.</li>
+                </ul>
+            </ul>
+            <div class="images">
+                <article>
+                    <div class="center gap">
+                        <img src="img/vae_latent_2_dim_neg1.png" alt="VAE variance -1.0 to 1.0" width="550" height="550"/>
+                        <img src="img/vae_latent_2_dim_neg5.png" alt="VAE variance -5.0 to 5.0" width="550" height="550"/>
+                        <div>
+                            <p>With the small size of the dataset there appears to be overfitting as the validation loss increases around the ten</p>
+                        </div>
+                    </div>
+                    <br>
+                </article>
+            </div>
+        </div>
+        <br>
+        <div class="tab">
+            <h2>Part 2: Deep Convolutional GAN </h2>
+            <h3>Implement a deep convolutional GAN. The Pokemon Dataset is used for experiment.  </h3>
+            <h4>Answer the following questions by providing discussion and plots (screenshots) of your training process, or visualizing your results.   </h4>
+            <h3>Task 1: Implement a deep convolutional GAN.  </h3>
+            <ul>
+                <li>Generator. The generator maps the noise variable (e.g., a length-d vector) to a RGB image (e.g., 64x64). The basic block of the generator includes a transposed convolution layer, followed by a batch normalization and a ReLU activation.  </li>
+                <li>Discriminator. The discriminator is a convolutional network network similar to what has been implemented in Project 1. One difference is that a leaky ReLU can be used instead of standard ReLU. Leaky ReLU gives a non-zero output for a negative input, aiming to fix the “dying ReLU” problem. </li>
+                <ul>
+                    <li>The basic block of the discriminator is a conv layer, followed by a batch normalization and a leaky ReLU activation.</li>
+                </ul>
+            </ul>
+            <h3>Task 2: GAN Tuning and Evaluation </h3>
+            <ul>
+                <li>Try replacing Leaky ReLU with standard ReLU in the discriminator. What differences do you observe in training stability or image quality? </li>
+                <li>Hyperparameter tuning (e.g., learning rate, leaky ReLU &#593 value). </li>
+                <li>Report and discuss:</li>
+                <ul>
+                    <li>Generator and discriminator loss trends.</li>
+                    <li>Changes in image quality during training.</li>
+                    <ul>
+                        <li>Save and visualize generated images at multiple training epochs (e.g., every 5 epochs) to show progression.</li>
+                    </ul>
+                    <li>Mode collapse or stability issues, if any. </li>
+                </ul>
+            </ul>
+            <div class="images">
+                <article>
+                    <br>
+                    <div class="center gap">
+                        <p>Samples of the Pokemon dataset</p>
+                        <img src="img/poke_samples.png" alt="GAN visualization at 5 epochs" width="575" height="200"/>
+                    </div>
+                    <br>
+                    <div class="center gap">
+                        <p>GAN using Leaky ReLU</p>
+                        <img src="img/GAN_vis_5_ep.png" alt="GAN visualization at 5 epochs" width="575" height="200"/>
+                        <img src="img/GAN_vis_10_ep.png" alt="GAN visualization at 10 epochs" width="575" height="200"/>
+                        <img src="img/GAN_vis_15_ep.png" alt="GAN visualization at 15 epochs" width="575" height="200"/>
+                        <img src="img/GAN_vis_20_ep.png" alt="GAN visualization at 20 epochs" width="575" height="200"/>
+                        <img src="img/GAN_vis_25_ep.png" alt="GAN visualization at 25 epochs" width="575" height="200"/>
+                        <img src="img/GAN_vis_30_ep.png" alt="GAN visualization at 30 epochs" width="575" height="200"/>
+                        <img src="img/GAN_vis_35_ep.png" alt="GAN visualization at 35 epochs" width="575" height="200"/>
+                        <img src="img/GAN_vis_40_ep.png" alt="GAN visualization at 40 epochs" width="575" height="200"/>
+                        <img src="img/GAN_vis_45_ep.png" alt="GAN visualization at 45 epochs" width="575" height="200"/>
+                        <img src="img/GAN_vis_50_ep.png" alt="GAN visualization at 50 epochs" width="575" height="200"/>
+                        <img src="img/Losses_leaky.png" alt="Generator and Discriminator Losses" width="575" height="300"/>
+                    </div>
+                    <div>
+                        <p>The Discriminator worked too well and over powered the Generator. At epoch 45 the Discriminator was 100% certain about every real image
+                            and the "gradient" became "flat". [45/50][600/635] Loss_D: 0.0000 Loss_G: 67.3079 D(x): 1.0000 D(G(z)): 0.0000 / 0.0000 </p>
+                    </div>
+                    <br>
+                </article>
+                <article>
+                    <br>
+                    <div class="center gap">
+                        <p>GAN using Standard ReLU</p>
+                        <img src="img/GAN_standard_5.png" alt="GAN visualization at 5 epochs" width="575" height="200"/>
+                        <img src="img/GAN_standard_10.png" alt="GAN visualization at 10 epochs" width="575" height="200"/>
+                        <img src="img/GAN_standard_15.png" alt="GAN visualization at 15 epochs" width="575" height="200"/>
+                        <img src="img/GAN_standard_20.png" alt="GAN visualization at 20 epochs" width="575" height="200"/>
+                        <img src="img/GAN_standard_25.png" alt="GAN visualization at 25 epochs" width="575" height="200"/>
+                        <img src="img/Losses_standard_relu.png" alt="Generator and Discriminator Losses" width="575" height="300"/>
+                    </div>
+                    <div>
+                        <p>The Discriminator again worked too well and over powered the Generator, but this time it happened much earlier in the training at epoch 24.
+                           [24/50][550/635] Loss_D: 0.0000 Loss_G: 43.3021 D(x): 1.0000 D(G(z)): 0.0000 / 0.0000 </p>
+                    </div>
+                    <br>
+                    <div class="center gap">
+                        <p>GAN using Leaky ReLU with the label smoothing changing 1.0 to 0.9</p>
+                        <img src="img/label_fill_adjust_10_ep.png" alt="GAN visualization at 10 epochs" width="575" height="200"/>
+                        <img src="img/label_fill_adjust_20_ep.png" alt="GAN visualization at 20 epochs" width="575" height="200"/>
+                        <img src="img/label_fill_adjust_30_ep.png" alt="GAN visualization at 30 epochs" width="575" height="200"/>
+                        <img src="img/label_fill_adjust_40_ep.png" alt="GAN visualization at 40 epochs" width="575" height="200"/>
+                        <img src="img/label_fill_adjust_50_ep.png" alt="GAN visualization at 50 epochs" width="575" height="200"/>
+                        <img src="img/label_fill_adjust_loss.png" alt="Generator and Discriminator Losses" width="575" height="300"/>
+                    </div>
+                    <div>
+                        <p>Going back to the leaky ReLu implementation, I tried label smoothing by adjusting the label.fill_(). of the Discriminator, so instead of saying 
+                            real images are 1.0, tell it they are 0.9. This is to prevent it from becoming too confident. The model made it through all 50 epochs and didn't 
+                            have the same stability issues as before. However, the generated images weren't great.  </p>
+                    </div>
+                    <br>
+                    <div class="center gap">
+                        <p>GAN using Leaky ReLU with the label smoothing and discriminator reduction from 64 to 44</p>
+                        <img src="img/fmaps_10_ep.png" alt="GAN visualization at 10 epochs" width="575" height="200"/>
+                        <img src="img/fmaps_20_ep.png" alt="GAN visualization at 20 epochs" width="575" height="200"/>
+                        <img src="img/fmaps_30_ep.png" alt="GAN visualization at 30 epochs" width="575" height="200"/>
+                        <img src="img/fmaps_40_ep.png" alt="GAN visualization at 40 epochs" width="575" height="200"/>
+                        <img src="img/fmaps_50_ep.png" alt="GAN visualization at 50 epochs" width="575" height="200"/>
+                        <img src="img/fmaps_loss.png" alt="Generator and Discriminator Losses" width="575" height="300"/>
+                    </div>
+                    <div>
+                        <p>I then tried adding a reduction to the discriminators capacity by decreasing the discriminators feature maps to 44 instead of 64. This was to 
+                            decrease the discriminators brain power. As before, the model completed all 50 epochs without a stability issue. The generated images looked 
+                            crisper to me, but again not great.</p>
+                    </div>
+                    <br>
+                    <div class="center gap">
+                        <p>GAN using Leaky ReLU, label smoothing, discriminator reduction and leanring rate change</p>
+                        <img src="img/optim_10_ep.png" alt="GAN visualization at 10 epochs" width="575" height="200"/>
+                        <img src="img/optim_20_ep.png" alt="GAN visualization at 20 epochs" width="575" height="200"/>
+                        <img src="img/optim_30_ep.png" alt="GAN visualization at 30 epochs" width="575" height="200"/>
+                        <img src="img/optim_40_ep.png" alt="GAN visualization at 40 epochs" width="575" height="200"/>
+                        <img src="img/optim_50_ep.png" alt="GAN visualization at 50 epochs" width="575" height="200"/>
+                        <img src="img/optim_loss.png" alt="Generator and Discriminator Losses" width="575" height="300"/>
+                    </div>
+                    <div>
+                        <p>Finally, I added to the changes by adjusting the learning rates of both the generator (from 0.0002 to 0.0003) and discriminator (from 0.0002 to 0.0001). 
+                            The stability was the same, but I feel the image quality decreased. </p>
+                    </div>
+                    <br>
+                </article>
+            </div>
+        </div>
+        <br>
+        <div class="tab">
+            <h2>Part 3: Wasserstein GAN </h2>
+            <h3>Implement a WGAN. The MNIST dataset is used in Task 1 to help students build a working WGAN model. Task 2 extends this to the Pokemon dataset used in Part 2. </h3>
+            <h4>Answer the following questions by providing discussion and plots (screenshots) of your training process, or visualizing your results. </h4>
+            <h3>Task 1: Implement a WGAN </h3>
+            <ul>
+                <li>Implement a WGAN. Train the model to generate a handwritten digits using the MNIST dataset. </li>
+                <li>Visualize generated samples and training loss curves. Provide discussion of your findings. </li>
+            </ul>
+            <div class="images">
+                <article>
+                    <br>
+                    <div class="center gap">
+                        <p>Number samples at every fifth epoch (started at 0)</p>
+                        <img src="img/WGAN_nums_ep_5.png" alt="WGAN visualization at 5 epochs" width="575" height="300"/>
+                        <img src="img/WGAN_nums_ep_10.png" alt="WGAN visualization at 10 epochs" width="575" height="300"/>
+                        <img src="img/WGAN_nums_ep_15.png" alt="WGAN visualization at 15 epochs" width="575" height="300"/>
+                        <img src="img/WGAN_nums_ep_20.png" alt="WGAN visualization at 20 epochs" width="575" height="300"/>
+                        <img src="img/WGAN_nums_ep_25.png" alt="WGAN visualization at 25 epochs" width="575" height="300"/>
+                        <img src="img/WGAN_nums_ep_30.png" alt="WGAN visualization at 30 epochs" width="575" height="300"/>
+                        <img src="img/WGAN_nums_ep_35.png" alt="WGAN visualization at 35 epochs" width="575" height="300"/>
+                        <img src="img/WGAN_nums_ep_40.png" alt="WGAN visualization at 40 epochs" width="575" height="300"/>
+                        <img src="img/WGAN_nums_ep_45.png" alt="WGAN visualization at 55 epochs" width="575" height="300"/>
+                        <img src="img/WGAN_nums_ep_50.png" alt="WGAN visualization at 50 epochs" width="575" height="300"/>
+                        <img src="img/WGAN_nums_loss.png" alt="Generator and Discriminator Losses" width="575" height="300"/>
+                    </div>
+                    <div>
+                        <p>The discriminator loss stayed in the negative throughout the epochs. The generator loss started in the negative for the first two epochs but increased
+                             to below 1.7 through the rest of the epochs. The training took 5 times longer than the normal GAN due to the critic update and the gradient penalty. 
+                             Around the 30'th epoch the sample numbers became worse as the model begain overfitting (model instability). </p>
+                    </div>
+                    <br>
+                </article>
+            </div> 
+            <h3>Task 2: Adapt WGAN to the Pokemon dataset </h3>
+            <ul>
+                <li>Modify your implementation to work with the Pokemon dataset used in Part 2. </li>
+                <ul>
+                    <li>Change the generator and discriminator (critic) architectures (e.g., convolutional and transposed convolution layers) to handle 64x64 RGB images in the Pokemon dataset.  </li>
+                    <li>Fine-tune training hyperparameters. </li>
+                </ul>
+                <li>Report and discuss:</li>
+                <ul>
+                    <li>Generated image quality and stability during training.</li>
+                    <li>What differences did you observe between GAN and WGAN behavior? Are the WGAN-generated Pokemon images more diverse or stable compared to your GAN results? Provide a discussion. </li>
+                </ul>
+            </ul>
+            <div class="images">
+                <article>
+                    <br>
+                    <p>The training is taking so long with the Pokemon dataset. 1 epoch will take about an hour and a half to train and there are 50 epochs.
+                        It will not be finished training by the time the project is due. I'm going to let it run all night and see what I get in the morning.
+                        Unfortunately, it won't be much for this part of the project.
+                    </p>
+                    <br>
+                </article>
+            </div> 
+        </div>
+    </main>
+</body>
+</html>
