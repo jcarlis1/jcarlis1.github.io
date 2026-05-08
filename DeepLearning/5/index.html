@@ -1,1 +1,206 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta author="Joey Carlisle">
+    <title>Engr 691: Project 5</title>
+    <link rel="icon" href="img/eye.png">
+    <link rel="stylesheet" type="text/css" href="../../styles.css" />
+</head>
+<body class="wrap">
+    <header>
+        <a class="inline" href="../index.html">&lt- Back Home</a>
+        <br>
+        <nav>
+            <h1>Engr 691: Project 5 - AI Agent</h1>
+        </nav>
+        <h2 class="tab">Objective:</h2>
+        <h3 class="tab">
+            In this project, you will design and implement an AI agent pipeline to automate a practical workflow: optimizing a LaTeX project by reducing its size while preserving visual quality.
+        </h3>
+        <p>The primary goal is not the LaTeX task itself, but to help you understand how to build agentic AI systems that can: </p>
+        <ul>
+            <li class="tab">Break down a task into multiple steps</li>
+            <li class="tab">Use foundation models (VLMs, MLLMs, LLMs) effectively within a pipeline</li>
+            <li class="tab">Automate decision-making in a structured workflow</li>
+        </ul>
+    </header>
+    <main class="report">
+        <div class="tab">
+            <h2>Part 1: Whole Project Compression</h2>
+            <h3>Reduce the total project size (compressed .zip) to less than 50 MB. </h3>
+            <ul>
+                <li>Remove unnecessary or unused files (e.g., backup folders, duplicate images)</li>
+                <li>Ensure the LaTeX project compiles successfully</li>
+                <li>The compiled PDF should remain visually reasonable (no obvious corruption or severe artifacts)</li>
+            </ul>
+            <div class="images">
+                <article>
+                    <br>
+                    <div>
+                        <p>I tried multiple attempts to get an ai agent to remove the redundant or unnecessary file, folders, 
+                            and images, but they keep failing. They would either delete needed files or leave folders or files 
+                            that should be deleted. I ended up having to use an ai agent just to analyze the project folder to 
+                            return a JSON list of strings. Later I have code that goes through the list and removes the unnecessary 
+                            files. I simply couldn't get an ai agent to work correctly. I must not have been passing it good enough prompt. 
+                            <br>With the implementation I used, I was only able to get the zipped size down to 53.3 MB (megabits). Because it wasn't 
+                            under 50 MB, I couldnt upload it to Overleaf to compile it into a pdf. However, in Part 2, you will be able
+                             to see that it was able to be compiled correctly.</p>
+                    </div>
+                    <br>
+                </article>
+            </div>
+        </div>
+        <br>
+        <div class="tab">
+            <h2>Part 2: PDF Compression</h2>
+            <h3>In addition to Part 1, further optimize the compiled PDF.</h3>
+            <ul>
+                <li>Project size (zip): &lt; 50 MB </li>
+                <li>Compiled PDF size: &lt; 30 MB </li>
+                <li>The compiled PDF should remain visually reasonable (no obvious corruption or severe artifacts)</li>
+            </ul>
+            <div class="images">
+                <article>
+                    <br>
+                    <div>
+                        <p>For Part 2, I used an ai agent to call a python function that uses PIL library to compress the images. 
+                            Do to the fact that current Large Language Models (LLMs) are essentially advanced prediction engines 
+                            for text and code. They can "understand" the concept of an image, but cannot physically reach into 
+                            Google Drive, grab a binary file, and rearrange its pixels. If I asked an AI to "rewrite the data 
+                            of this image to make it smaller" without a library, it might try to output a wall of hexadecimal 
+                            text or base64 code. Also, processing images is computationally expensive. In this approach, I am 
+                            using them as a team, where the AI Agent acts as the "Brain," and PIL acts as the "Hands."
+                            <br>I was able to get the zip to 27.3 MB and the compiled pdf to 26.6 MB.
+                            <br> As you can see below, the images remained clear and visually accurate.
+                        </p>
+                    </div>
+                    <br>
+                    <div class="article">
+                        <figure>
+                            <img src="img/orig_fig1.png" alt="Original Figure 1" width="250" height="150"/>
+                            <figcaption>Original Figure 1</figcaption>
+                        </figure>
+                        <figure>
+                            <img src="img/fc_fig1.png" alt="First Compression Figure 1" width="250" height="150"/>
+                            <figcaption>Figure 1 compressed</figcaption>
+                        </figure>
+                    </div>
+                    <div class="article">
+                        <figure>
+                            <img src="img/orig_fig2.png" alt="Original Figure 2" width="250" height="200"/>
+                            <figcaption>Original Figure 2</figcaption>
+                        </figure>
+                        <figure>
+                            <img src="img/fc_fig2.png" alt="First Compression Figure 2" width="250" height="200"/>
+                            <figcaption>Figure 2 compressed</figcaption>
+                        </figure>
+                    </div>
+                    <div class="article">
+                        <figure>
+                            <img src="img/orig_fig3.png" alt="Original Figure 3" width="575" height="350"/>
+                            <figcaption>Original Figure 3</figcaption>
+                        </figure>
+                    </div>
+                    <div class="article">
+                        <figure>
+                            <img src="img/fc_fig3.png" alt="First Compression Figure 3" width="575" height="350"/>
+                            <figcaption>Figure 3 compressed</figcaption>
+                        </figure>
+                    </div>
+                    <div class="article">
+                        <figure>
+                            <img src="img/orig_fig4.png" alt="Original Figure 4" width="575" height="350"/>
+                            <figcaption>Original Figure 4</figcaption>
+                        </figure>
+                    </div>
+                    <div class="article">
+                        <figure>
+                            <img src="img/fc_fig4.png" alt="First Compression Figure 4" width="575" height="350"/>
+                            <figcaption>Figure 4 compressed</figcaption>
+                        </figure>
+                    </div>
+                    <br>
+                </article>
+            </div>
+        </div>
+        <br>
+        <div class="tab">
+            <h2>Part 3: Both Project and PDF Compression</h2>
+            <h3>Achieve more aggressive optimization while maintaining quality. </h3>
+            <ul>
+                <li>Project size (zip): &lt; 30 MB</li>
+                <li>Compiled PDF size: &lt; 15 MB </li>
+                <li>Visual quality must be preserved:</li>
+                <ul>
+                    <li>Fine details should still be visible</li>
+                    <li>Images should not appear overly blurry or distorted</li>
+                </ul>
+            </ul>
+            <div class="images">
+                <article>
+                    <br>
+                    <div>
+                        <p>For Part 3, I used an ai agent again to call a python function that uses PIL library, but this 
+                            time I used more aggressive approach to scale the images down and strip the metadata out of 
+                            the images. Also, by using subsampling = 0 I pair this with Huffman Table Optimization. 
+                            This tells PIL to perform a complex mathematical pass to find the absolute most efficient 
+                            way to map the binary code to the image data.
+                            <br>With this approach, I was able to get the zip to 7.8 MB and the compiled pdf to 7.9 MB.
+                            <br> As you can see below, the images still maintain their fine details and none of them appear blurry or distorted.
+                        </p>
+                    </div>
+                    <br>
+                    <div class="article">
+                        <figure>
+                            <img src="img/orig_fig1.png" alt="Original Figure 1" width="250" height="150"/>
+                            <figcaption>Original Figure 1</figcaption>
+                        </figure>
+                        <figure>
+                            <img src="img/agc_fig1.png" alt="Second Compression Figure 1" width="250" height="150"/>
+                            <figcaption>Figure 1 aggressive compressed</figcaption>
+                        </figure>
+                    </div>
+                    <div class="article">
+                        <figure>
+                            <img src="img/orig_fig2.png" alt="Original Figure 2" width="250" height="200"/>
+                            <figcaption>Original Figure 2</figcaption>
+                        </figure>
+                        <figure>
+                            <img src="img/agc_fig2.png" alt="Second Compression Figure 2" width="250" height="200"/>
+                            <figcaption>Figure 2 aggressive compressed</figcaption>
+                        </figure>
+                    </div>
+                    <div class="article">
+                        <figure>
+                            <img src="img/orig_fig3.png" alt="Original Figure 3" width="575" height="350"/>
+                            <figcaption>Original Figure 3</figcaption>
+                        </figure>
+                    </div>
+                    <div class="article">
+                        <figure>
+                            <img src="img/agc_fig3.png" alt="Second Compression Figure 3" width="575" height="350"/>
+                            <figcaption>Figure 3 aggressive compressed</figcaption>
+                        </figure>
+                    </div>
+                    <div class="article">
+                        <figure>
+                            <img src="img/orig_fig4.png" alt="Original Figure 4" width="575" height="350"/>
+                            <figcaption>Original Figure 4</figcaption>
+                        </figure>
+                    </div>
+                    <div class="article">
+                        <figure>
+                            <img src="img/agc_fig4.png" alt="Second Compression Figure 4" width="575" height="350"/>
+                            <figcaption>Figure 4 compressed</figcaption>
+                        </figure>
+                    </div>
+                    <br>
+                </article>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
