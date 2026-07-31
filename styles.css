@@ -17,21 +17,23 @@
 
 /* Base */
 *{ box-sizing:border-box }
-/* html,body{ 
-    
-} */
-body{
+html,body{ 
     height:100% 
+}
+body{
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
     margin: 0px;
     font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
-    position: relative;
-    padding-bottom: 30px;
     background:
     radial-gradient(1200px 600px at 10% -20%, #3b82f680 0%, transparent 55%),
     radial-gradient(1000px 500px at 110% 10%, #22d3ee60 0%, transparent 50%),
     linear-gradient(180deg, var(--bg) 0%, var(--bg) 100%);
     justify-content:center;
 }
+
+
 .wrap{
     width:min(1100px, 92vw);
     margin:48px auto 80px;
@@ -64,10 +66,7 @@ header p {
 }
 
 footer {
-    position: absolute;
-    bottom: 0;
-    height: 30px; /* Fixed height */
-    width: 100%;
+    margin-top: auto;
 }
 
 .text {
