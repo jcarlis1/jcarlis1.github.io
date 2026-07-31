@@ -25,10 +25,18 @@ body{
     radial-gradient(1000px 500px at 110% 10%, #22d3ee60 0%, transparent 50%),
     linear-gradient(180deg, var(--bg) 0%, var(--bg) 100%);
     justify-content:center;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Ensures body is at least full viewport height */
+    margin: 0;
 }
 .wrap{
     width:min(1100px, 92vw);
     margin:48px auto 80px;
+}
+
+main{
+    flex: 1; 
 }
 
 .report {
