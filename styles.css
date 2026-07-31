@@ -69,8 +69,8 @@ footer {
     margin-top: auto;
     padding: 24px;
     /* text-align: center; */
-    background-color: var(--bg-box);
-    color: var(--report);
+    /* background-color: var(--bg-box);
+    color: var(--report); */
 }
 
 .text {
