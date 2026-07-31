@@ -17,11 +17,12 @@
 
 /* Base */
 *{ box-sizing:border-box }
-html,body{ 
+/* html,body{ 
+    
+} */
+body{
     height:100% 
     margin: 0px;
-}
-body{
     font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
     position: relative;
     padding-bottom: 30px;
