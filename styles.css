@@ -86,6 +86,10 @@ footer {
     flex-direction: row;
 }
 
+.top-box {
+    margin-bottom: 15rem;
+}
+
 a.inline{
     color: var(--text);
     font-weight: bold;
